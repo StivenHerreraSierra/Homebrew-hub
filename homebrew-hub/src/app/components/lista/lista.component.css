@@ -1,0 +1,13 @@
+.lista-container {
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.lista-item {
+    min-height: 150px;
+    min-width: 100%;
+    background-color: green;
+    box-sizing: border-box;
+    margin: 10px 0 !important;
+    padding: 20px;
+}
