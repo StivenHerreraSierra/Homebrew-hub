@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Paquete } from 'src/app/models/package.model';
 
 @Component({
   selector: 'app-lista-item',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./lista-item.component.css']
 })
 export class ListaItemComponent implements OnInit {
+  @Input() paquete!: Paquete;
 
   constructor() { }
 

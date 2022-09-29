@@ -15,6 +15,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [AppComponent, ListaComponent, ListaItemComponent],
@@ -29,6 +30,7 @@ import { MatChipsModule } from '@angular/material/chips';
     MatListModule,
     MatIconModule,
     MatChipsModule,
+    MatPaginatorModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
