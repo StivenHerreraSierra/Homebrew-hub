@@ -3,7 +3,7 @@
   <img width="45" alt="Homebrew Logo" src="../assets/homebrew.png" />
   <h1 class="toolbar__titulo">Homebrew <span style="color: #ccc">hub</span></h1>
   
-  <app-buscador></app-buscador>
+  <app-buscador (eventoBuscar)="buscarPaquete($event)"></app-buscador>
   
   <div class="spacer"></div>
   
@@ -58,11 +58,11 @@
     <section class="section">
       <p>
         {{ indicePrimerItem + 1 }} - {{ indiceUltimoItem }} de
-        {{ paquetesCompletos.length }} resultados disponibles
+        {{ totalPaquetes }} resultados disponibles
       </p>
       <app-lista
         [paquetes]="paquetesPagina"
-        [totalPaquetes]="paquetesCompletos.length"
+        [totalPaquetes]="totalPaquetes"
         (eventoPaginador)="actualizarPagina($event)"
       ></app-lista>
     </section>

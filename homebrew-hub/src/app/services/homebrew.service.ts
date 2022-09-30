@@ -55,16 +55,23 @@ export class HomebrewService {
   getAnalytics(nombrePaquete: string) {
     this.http
       .get<PaqueteRespuesta>(`${environment.api}/formula/${nombrePaquete}.json`)
-      .pipe(
-        map((data: PaqueteRespuesta) => data.analytics)
-      );
+      .pipe(map((data: PaqueteRespuesta) => data.analytics));
   }
 
   getLinuxAnalytics(nombrePaquete: string) {
     this.http
       .get<PaqueteRespuesta>(`${environment.api}/formula/${nombrePaquete}.json`)
-      .pipe(
-        map((data: PaqueteRespuesta) => data['analytics-linux'])
-      );
+      .pipe(map((data: PaqueteRespuesta) => data['analytics-linux']));
+  }
+
+  filtrarPorBusqueda(busqueda: string, paquetesActual: Paquete[]): Paquete[] {
+    const busquedaAux = busqueda.toLowerCase();
+    const paquetesFiltrados = paquetesActual.filter(
+      (paquete) =>
+        paquete.name.toLowerCase().includes(busquedaAux) ||
+        paquete.desc.toLowerCase().includes(busquedaAux)
+    );
+
+    return paquetesFiltrados;
   }
 }
