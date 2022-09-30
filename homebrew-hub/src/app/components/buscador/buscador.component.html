@@ -1,0 +1,10 @@
+<form class="buscador-container" (submit)="buscar()">
+  <mat-icon class="buscador__icon" matSuffix>search</mat-icon>
+  <input
+    class="buscador__input"
+    type="text"
+    placeholder="Busca paquetes de tu interés"
+    [(ngModel)]="busqueda"
+    name="busqueda"
+  />
+</form>

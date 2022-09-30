@@ -1,0 +1,37 @@
+.buscador-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 300px;
+  height: 40px;
+  background-color: red;
+  box-sizing: border-box;
+  padding: 0 10px;
+  border-radius: 3px;
+  background-color: #659fda8a;
+  color: white;
+}
+.buscador-container:focus-within {
+  background-color: whitesmoke;
+}
+.buscador-container:focus-within > * {
+  color: rgb(27, 27, 27);
+}
+.buscador-container > * {
+  color: white;
+}
+.buscador__icon {
+  font-size: 19px;
+  width: 19px;
+  height: 19px;
+}
+.buscador__input {
+  width: 200px;
+  background-color: transparent;
+  width: 90%;
+  border: none;
+  appearance: none;
+  outline-style: none;
+  font-size: 14px;
+  margin-left: 3px;
+}

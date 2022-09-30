@@ -5,7 +5,7 @@ import { Paquete } from 'src/app/models/package.model';
 @Component({
   selector: 'app-lista',
   templateUrl: './lista.component.html',
-  styleUrls: ['./lista.component.css']
+  styleUrls: ['./lista.component.css'],
 })
 export class ListaComponent implements OnInit {
   @Input() paquetes!: Paquete[];
@@ -13,11 +13,9 @@ export class ListaComponent implements OnInit {
 
   @Output() eventoPaginador = new EventEmitter();
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-    console.log(this.paquetes.length)
-  }
+  ngOnInit(): void {}
 
   cambiarPagina(evento: PageEvent) {
     this.eventoPaginador.emit(evento.pageIndex);

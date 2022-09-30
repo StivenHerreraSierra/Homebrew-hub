@@ -4,10 +4,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 //Componentes
 import { ListaComponent } from './components/lista/lista.component';
 import { ListaItemComponent } from './components/lista-item/lista-item.component';
+import { BuscadorComponent } from './components/buscador/buscador.component';
 
 //Material
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -16,13 +18,21 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
-  declarations: [AppComponent, ListaComponent, ListaItemComponent],
+  declarations: [
+    AppComponent,
+    ListaComponent,
+    ListaItemComponent,
+    BuscadorComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule,
 
     //Material
     MatGridListModule,
@@ -31,6 +41,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatIconModule,
     MatChipsModule,
     MatPaginatorModule,
+    MatFormFieldModule,
+    MatInputModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

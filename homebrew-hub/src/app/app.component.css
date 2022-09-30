@@ -43,15 +43,16 @@ p {
   height: 60px;
   display: flex;
   align-items: center;
-  /*background-color: #1976d2;*/
   background-color: #3a8bdb;
   color: white;
   font-weight: 600;
   min-width: 100%;
+  padding: 0 25px;
+  box-sizing: border-box;
 }
 
-.toolbar img {
-  margin: 0 16px;
+.toolbar__titulo {
+  margin-right: 20px;
 }
 
 .toolbar #twitter-logo {
