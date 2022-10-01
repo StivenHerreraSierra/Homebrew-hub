@@ -62,11 +62,16 @@ export class HomebrewService {
 
   getLinuxAnalytics(nombrePaquete: string) {
     this.http
-      .get<PaqueteRespuesta>(`${environment.api}/formula/${nombrePaquete}.json`, {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json'
-        })
-      })
+      .get<PaqueteRespuesta>(
+        `${environment.api}/formula/${nombrePaquete}.json`,
+        {
+          headers: new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': 'https://formulae.brew.sh/api/',
+          }),
+          withCredentials: true,
+        }
+      )
       .pipe(map((data: PaqueteRespuesta) => data['analytics-linux']));
   }
 
