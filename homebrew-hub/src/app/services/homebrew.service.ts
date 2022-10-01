@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Paquete, PaqueteRespuesta } from '../models/package.model';
 import { map, Subject } from 'rxjs';
@@ -63,9 +63,9 @@ export class HomebrewService {
   getLinuxAnalytics(nombrePaquete: string) {
     this.http
       .get<PaqueteRespuesta>(`${environment.api}/formula/${nombrePaquete}.json`, {
-        headers: {
+        headers: new HttpHeaders({
           'Content-Type': 'application/json'
-        }
+        })
       })
       .pipe(map((data: PaqueteRespuesta) => data['analytics-linux']));
   }
