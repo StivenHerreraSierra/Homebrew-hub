@@ -62,7 +62,11 @@ export class HomebrewService {
 
   getLinuxAnalytics(nombrePaquete: string) {
     this.http
-      .get<PaqueteRespuesta>(`${environment.api}/formula/${nombrePaquete}.json`)
+      .get<PaqueteRespuesta>(`${environment.api}/formula/${nombrePaquete}.json`, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
       .pipe(map((data: PaqueteRespuesta) => data['analytics-linux']));
   }
 
