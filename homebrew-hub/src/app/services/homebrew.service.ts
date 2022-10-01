@@ -69,7 +69,6 @@ export class HomebrewService {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': 'https://formulae.brew.sh/api/',
           }),
-          withCredentials: true,
         }
       )
       .pipe(map((data: PaqueteRespuesta) => data['analytics-linux']));
