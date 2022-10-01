@@ -194,7 +194,7 @@ svg#clouds {
 
 .sidenav {
   flex-basis: 20%;
-  background-color: red;
+  background-color: transparent;
   padding: 0 5px;
 }
 
