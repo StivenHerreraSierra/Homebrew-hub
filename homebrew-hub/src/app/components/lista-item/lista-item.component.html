@@ -9,10 +9,9 @@
     <p class="info__descripcion">{{ paquete.desc }}</p>
     <mat-chip-list  aria-label="Fish selection" >
       <mat-chip class="info__chip">
-        <mat-icon class="info__chip--icon" fontIcon="gavel"></mat-icon> &nbsp;
         {{ "v" + paquete.stableVersion }}
       </mat-chip>
-      <mat-chip class="info__chip">
+      <mat-chip class="info__chip" *ngIf="paquete.license">
         <mat-icon class="info__chip--icon" fontIcon="gavel"></mat-icon> &nbsp;
         {{ paquete.license }}
       </mat-chip>

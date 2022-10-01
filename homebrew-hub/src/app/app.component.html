@@ -61,18 +61,19 @@
           <h4>Licencia</h4>
           <mat-selection-list
             class="licencia-container"
+            name="licenciasSeleccionadas"
             [(ngModel)]="licenciasSeleccionadas"
+            (selectionChange)="filtrarPorLicencia($event)"
           >
             <mat-list-option
               class="licencia__opcion"
               *ngFor="let licencia of licencias"
               checkboxPosition="before"
-              value="{{ licencia }}"
+              [value]="licencia"
             >
               {{ licencia }}
             </mat-list-option>
           </mat-selection-list>
-          <span>{{ licenciasSeleccionadas }}</span>
         </div>
       </form>
     </aside>

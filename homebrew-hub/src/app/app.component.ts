@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Paquete } from './models/package.model';
 import { HomebrewService } from './services/homebrew.service';
+import { LICENCIAS } from '../assets/licencias';
+import { MatSelectionListChange } from '@angular/material/list';
 
 const ITEMS_PAGINA = 20;
 
@@ -14,119 +16,15 @@ export class AppComponent implements OnInit {
   title = 'homebrew-hub';
 
   paquetesObservable = new Observable<Paquete[]>();
-  paquetesCompletos: Paquete[] = [];
+  paquetes: Paquete[] = [];
   paquetesPagina: Paquete[] = [];
-  paquetesFiltrados: Paquete[] = [];
 
   indicePrimerItem = 0;
   indiceUltimoItem = 0;
   totalPaquetes = 0;
-  private estaFiltrado = false;
 
   licenciasSeleccionadas: string[] = [];
-  licencias = [
-    '0BSD',
-    'AFL',
-    'AGPL',
-    'AMPAS',
-    'ANTLR-PD',
-    'APSL',
-    'Apache',
-    'Artistic',
-    'BSD',
-    'BSL',
-    'Beerware',
-    'BlueOak',
-    'CC',
-    'CC0',
-    'CDDL',
-    'CECILL',
-    'CECILL-B',
-    'CECILL-C',
-    'Cannot Represent',
-    'ClArtistic',
-    'DOC',
-    'ECL',
-    'EPL',
-    'EUPL',
-    'FSFUL',
-    'FSFULLR',
-    'FTL',
-    'Fair',
-    'FreeImage',
-    'GCC',
-    'GFDL',
-    'GL2PS',
-    'GPL',
-    'HPND',
-    'HPND-sell-variant',
-    'ICU',
-    'IJG',
-    'ISC',
-    'ImageMagick',
-    'Imlib2',
-    'Info-ZIP',
-    'Intel-ACPI',
-    'JSON',
-    'JasPer',
-    'LGPL',
-    'MIT',
-    'MIT-CMU',
-    'MIT-Modern-Variant',
-    'MIT-enna',
-    'MIT-feh',
-    'MIT-open-group',
-    'MPL',
-    'MirOS',
-    'NCSA',
-    'NGPL',
-    'NLPL',
-    'Net-SNMP',
-    'NetCDF',
-    'Noweb',
-    'OFL',
-    'OLDAP',
-    'OML',
-    'OpenSSL',
-    'PHP',
-    'PSF',
-    'PostgreSQL',
-    'Public Domain',
-    'Python',
-    'QPL',
-    'Qhull',
-    'RSA-MD',
-    'Ruby',
-    'SGI',
-    'SGI-B',
-    'SSH-OpenSSH',
-    'Sleepycat',
-    'TCL',
-    'TU-Berlin',
-    'UPL',
-    'Unicode',
-    'Unicode-TOU',
-    'Unlicense',
-    'VOSTROM',
-    'Vim',
-    'W3C',
-    'WTFPL',
-    'X11',
-    'Xerox',
-    'ZPL',
-    'Zlib',
-    'Blessing',
-    'Bzip2',
-    'Curl',
-    'GSOAP',
-    'Gnuplot',
-    'Libpng',
-    'Libtiff',
-    'Mpich2',
-    'Psutils',
-    'WxWindows',
-    'Zlib-acknowledgement',
-  ];
+  licencias = LICENCIAS;
 
   constructor(private homebrewService: HomebrewService) {}
 
@@ -135,7 +33,7 @@ export class AppComponent implements OnInit {
 
     this.paquetesObservable.subscribe({
       next: (data: Paquete[]) => {
-        this.paquetesCompletos = data;
+        this.paquetes = data;
         this.actualizarPagina(0);
       },
       error(err) {
@@ -147,15 +45,7 @@ export class AppComponent implements OnInit {
   }
 
   actualizarPagina(indicePagina: number) {
-    if (this.estaFiltrado) {
-      this.segmentarPaquetes(indicePagina, this.paquetesFiltrados);
-    } else {
-      this.segmentarPaquetes(indicePagina, this.paquetesCompletos);
-    }
-  }
-
-  segmentarPaquetes(indicePagina: number, paquetes: Paquete[]) {
-    this.totalPaquetes = paquetes.length;
+    this.totalPaquetes = this.paquetes.length;
 
     if (this.totalPaquetes == 0) {
       this.indicePrimerItem = -1;
@@ -167,7 +57,7 @@ export class AppComponent implements OnInit {
     this.indicePrimerItem = indicePagina * ITEMS_PAGINA;
     this.indiceUltimoItem = this.indicePrimerItem + ITEMS_PAGINA;
 
-    this.paquetesPagina = paquetes.slice(
+    this.paquetesPagina = this.paquetes.slice(
       this.indicePrimerItem,
       this.indiceUltimoItem
     );
@@ -180,15 +70,32 @@ export class AppComponent implements OnInit {
 
   buscarPaquete(busqueda: string) {
     if (busqueda) {
-      this.paquetesFiltrados = this.homebrewService.filtrarPorBusqueda(
-        busqueda,
-        this.paquetesCompletos
-      );
-      this.estaFiltrado = true;
+      this.paquetes = this.homebrewService.filtrarPorBusqueda(busqueda);
     } else {
-      this.paquetesFiltrados = [];
-      this.estaFiltrado = false;
+      this.homebrewService.getAll();
     }
+    this.actualizarPagina(0);
+  }
+
+  filtrarPorLicencia(evento: MatSelectionListChange) {
+    const opcion = evento.options[0];
+
+    if (this.licenciasSeleccionadas.length === 0) {
+      this.homebrewService.getAll();
+    } else if (opcion.selected && this.licenciasSeleccionadas.length === 1) {
+      this.paquetes = this.homebrewService.filtrarPorLicencia(opcion.value, []);
+    } else if (opcion.selected) {
+      this.paquetes = this.homebrewService.filtrarPorLicencia(
+        opcion.value,
+        this.paquetes
+      );
+    } else {
+      this.paquetes = this.homebrewService.removerFiltroPorLicencia(
+        opcion.value,
+        this.paquetes
+      );
+    }
+
     this.actualizarPagina(0);
   }
 }
