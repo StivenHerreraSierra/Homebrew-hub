@@ -21,6 +21,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { FiltroCheckboxComponent } from './components/filtro-checkbox/filtro-checkbox.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     ListaComponent,
     ListaItemComponent,
     BuscadorComponent,
+    FiltroCheckboxComponent,
   ],
   imports: [
     BrowserModule,

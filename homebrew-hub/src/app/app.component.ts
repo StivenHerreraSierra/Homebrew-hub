@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { Paquete } from './models/package.model';
 import { HomebrewService } from './services/homebrew.service';
 import { LICENCIAS } from '../assets/licencias';
-import { MatSelectionListChange } from '@angular/material/list';
+import { CuerpoEventoFiltrar } from './components/filtro-checkbox/filtro-checkbox.component';
 
 const ITEMS_PAGINA = 20;
 
@@ -80,26 +80,19 @@ export class AppComponent implements OnInit {
     this.actualizarPagina(0);
   }
 
-  filtrarPorLicencia(evento: MatSelectionListChange) {
-    const opcion = evento.options[0];
+  filtrarPorLicenciaHandler(cuerpo: CuerpoEventoFiltrar) {
+    const { opcion, seleccionados } = cuerpo;
+
+    this.licenciasSeleccionadas = seleccionados;
 
     if (this.licenciasSeleccionadas.length === 0) {
       this.paquetes = this.copiaPaquetes;
       this.copiaPaquetes = [];
     } else if (opcion.selected && this.licenciasSeleccionadas.length === 1) {
       this.copiaPaquetes = this.paquetes;
-
-      this.paquetes = this.homebrewService.filtrarPorLicencia(
-        opcion.value,
-        this.copiaPaquetes,
-        []
-      );
+      this.paquetes = this.filtrarPorLicencia(opcion.value, []);
     } else if (opcion.selected) {
-      this.paquetes = this.homebrewService.filtrarPorLicencia(
-        opcion.value,
-        this.copiaPaquetes,
-        this.paquetes
-      );
+      this.paquetes = this.filtrarPorLicencia(opcion.value, this.paquetes);
     } else {
       this.paquetes = this.homebrewService.removerFiltroPorLicencia(
         opcion.value,
@@ -108,5 +101,13 @@ export class AppComponent implements OnInit {
     }
 
     this.actualizarPagina(0);
+  }
+
+  filtrarPorLicencia(licencia: string, paquetesActual: Paquete[]): Paquete[] {
+    return this.homebrewService.filtrarPorLicencia(
+      licencia,
+      this.copiaPaquetes,
+      paquetesActual
+    );
   }
 }
