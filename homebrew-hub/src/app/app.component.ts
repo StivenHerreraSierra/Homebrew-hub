@@ -17,6 +17,7 @@ export class AppComponent implements OnInit {
 
   paquetesObservable = new Observable<Paquete[]>();
   paquetes: Paquete[] = [];
+  copiaPaquetes: Paquete[] = [];
   paquetesPagina: Paquete[] = [];
 
   indicePrimerItem = 0;
@@ -69,6 +70,8 @@ export class AppComponent implements OnInit {
   }
 
   buscarPaquete(busqueda: string) {
+    this.licenciasSeleccionadas = [];
+
     if (busqueda) {
       this.paquetes = this.homebrewService.filtrarPorBusqueda(busqueda);
     } else {
@@ -81,12 +84,20 @@ export class AppComponent implements OnInit {
     const opcion = evento.options[0];
 
     if (this.licenciasSeleccionadas.length === 0) {
-      this.homebrewService.getAll();
+      this.paquetes = this.copiaPaquetes;
+      this.copiaPaquetes = [];
     } else if (opcion.selected && this.licenciasSeleccionadas.length === 1) {
-      this.paquetes = this.homebrewService.filtrarPorLicencia(opcion.value, []);
+      this.copiaPaquetes = this.paquetes;
+
+      this.paquetes = this.homebrewService.filtrarPorLicencia(
+        opcion.value,
+        this.copiaPaquetes,
+        []
+      );
     } else if (opcion.selected) {
       this.paquetes = this.homebrewService.filtrarPorLicencia(
         opcion.value,
+        this.copiaPaquetes,
         this.paquetes
       );
     } else {

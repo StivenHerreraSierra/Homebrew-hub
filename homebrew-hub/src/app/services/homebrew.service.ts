@@ -85,9 +85,11 @@ export class HomebrewService {
     return paquetesFiltrados;
   }
 
-  filtrarPorLicencia(licencia: string, listaActual: Paquete[]) {
+  filtrarPorLicencia(licencia: string, paquetes: Paquete[], listaActual: Paquete[]) {
+    var listaFiltrada: Paquete[] = [];
+
     //Obtiene los paquetes que cumplen.
-    var listaFiltrada: Paquete[] = this.listaPaquetes.filter(
+    listaFiltrada = paquetes.filter(
       (p) => p.license && p.license.includes(licencia)
     );
 
