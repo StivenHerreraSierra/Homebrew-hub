@@ -94,7 +94,7 @@ export class HomebrewService {
     );
 
     //Une los paquetes nuevos con los anteriores, omite repetidos.
-    listaFiltrada = _.unionWith(listaActual, listaFiltrada, _.isEqual);
+    listaFiltrada = [...new Set([...listaActual, ...listaFiltrada])];
 
     return listaFiltrada;
   }
@@ -104,6 +104,43 @@ export class HomebrewService {
     var listaFiltrada: Paquete[] = listaActual.filter(
       (p) => p.license && !p.license.includes(licencia)
     );
+
+    return listaFiltrada;
+  }
+
+  filtrarPorSistemaOperativo(sistema: string, paquetes: Paquete[], listaActual: Paquete[]) {
+    var listaFiltrada: Paquete[] = [];
+
+    //Obtiene los paquetes que cumplen.
+    if(sistema.toLowerCase() === "linux") {
+      listaFiltrada = paquetes.filter(
+        (p) => p.linuxCompatible
+      );  
+    } else {
+      listaFiltrada = paquetes.filter(
+        (p) => !p.linuxCompatible
+      );
+    }
+
+    //Une los paquetes nuevos con los anteriores, omite repetidos.
+    listaFiltrada = [...new Set([...listaActual, ...listaFiltrada])];
+
+    return listaFiltrada;
+  }
+
+  removerFiltroPorSistemaOperativo(sistema: string, listaActual: Paquete[]) {
+    var listaFiltrada: Paquete[] = []
+
+    //Obtiene los paquetes que cumplen.
+    if(sistema.toLowerCase() === "linux") {
+      listaFiltrada = listaActual.filter(
+        (p) => !p.linuxCompatible
+      );
+    } else {
+      listaFiltrada = listaActual.filter(
+        (p) => p.linuxCompatible
+      );
+    }
 
     return listaFiltrada;
   }

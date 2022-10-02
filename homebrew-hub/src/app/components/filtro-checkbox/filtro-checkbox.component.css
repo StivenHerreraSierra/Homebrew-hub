@@ -1,8 +1,10 @@
 .filtro-container {
   box-sizing: border-box;
-  height: 250px;
-  overflow-y: scroll;
+  max-height: 250px;
+  height: fit-content;
+  overflow-y: auto;
   overflow-x: auto;
+  margin-bottom: 10px;
 }
 
 .filtro-container::-webkit-scrollbar {

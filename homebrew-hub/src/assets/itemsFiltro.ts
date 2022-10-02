@@ -101,3 +101,5 @@ export const LICENCIAS: string[] = [
   "WxWindows",
   "Zlib-acknowledgement",
 ];
+
+export const SISTEMAS_OPERATIVOS = ["Linux", "MacOS"];
