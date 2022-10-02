@@ -202,27 +202,3 @@ svg#clouds {
   flex-basis: 80%;
   background-color: transparent;
 }
-
-.licencia-container {
-  box-sizing: border-box;
-  height: 250px;
-  overflow-y: scroll;
-  overflow-x: auto;
-}
-
-.licencia-container::-webkit-scrollbar {
-  width: 5px;
-  background-color: rgb(153, 153, 153);
-  border-radius: 20px;
-}
-
-.licencia-container::-webkit-scrollbar-thumb {
-  background-color: rgb(80, 80, 80);
-  border-radius: 20px;
-}
-
-.licencia__opcion {
-  height: 30px !important;
-  padding: 0;
-  margin: 0;
-}
