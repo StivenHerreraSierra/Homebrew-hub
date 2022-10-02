@@ -1,7 +1,11 @@
 <!-- Toolbar -->
 <div class="toolbar" role="banner">
-  <img width="45" alt="Homebrew Logo" src="../assets/homebrew.png" />
-  <h1 class="toolbar__titulo">Homebrew <span style="color: #ccc">hub</span></h1>
+  <a routerLink="/" class="inline">
+    <img width="45" alt="Homebrew Logo" src="../assets/homebrew.png" />
+    <h1 class="toolbar__titulo">
+      Homebrew <span style="color: #ccc">hub</span>
+    </h1>
+  </a>
 
   <app-buscador (eventoBuscar)="buscarPaquete($event)"></app-buscador>
 
