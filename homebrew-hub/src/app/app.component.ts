@@ -4,7 +4,6 @@ import { Paquete } from './models/package.model';
 import { HomebrewService } from './services/homebrew.service';
 import { LICENCIAS, SISTEMAS_OPERATIVOS } from '../assets/itemsFiltro';
 import { CuerpoEventoFiltrar } from './components/filtro-checkbox/filtro-checkbox.component';
-import { TitleStrategy } from '@angular/router';
 
 const ITEMS_PAGINA = 20;
 
@@ -25,6 +24,8 @@ export class AppComponent implements OnInit {
   indiceUltimoItem = 0;
   totalPaquetes = 0;
 
+  busqueda: string = "";
+
   licenciasSeleccionadas: string[] = [];
   licencias = LICENCIAS;
 
@@ -34,12 +35,13 @@ export class AppComponent implements OnInit {
   constructor(private homebrewService: HomebrewService) {}
 
   ngOnInit(): void {
+    console.log("Ejecutando Init:", Date.now().toLocaleString());
     this.paquetesObservable = this.homebrewService.watch();
 
     this.paquetesObservable.subscribe({
       next: (data: Paquete[]) => {
         this.paquetes = data;
-        this.verificarFiltros();
+        this.reiniciarFiltrosLista();
         this.actualizarPagina(0);
       },
       error(err) {
@@ -48,6 +50,8 @@ export class AppComponent implements OnInit {
     });
 
     this.homebrewService.getAll();
+
+    this.busqueda = "";
   }
 
   actualizarPagina(indicePagina: number) {
@@ -75,14 +79,18 @@ export class AppComponent implements OnInit {
   }
 
   buscarPaquete(busqueda: string) {
-    this.licenciasSeleccionadas = [];
-    this.sistemasOperativosSeleccionados = [];
+    if (this.busqueda !== busqueda) {
+      this.licenciasSeleccionadas = [];
+      this.sistemasOperativosSeleccionados = [];
+      this.busqueda = busqueda;
+    }
 
     if (busqueda) {
       this.paquetes = this.homebrewService.filtrarPorBusqueda(busqueda);
     } else {
       this.homebrewService.getAll();
     }
+
     this.actualizarPagina(0);
   }
 
@@ -92,8 +100,8 @@ export class AppComponent implements OnInit {
     this.licenciasSeleccionadas = seleccionados;
 
     if (this.licenciasSeleccionadas.length === 0) {
-      this.paquetes = this.copiaPaquetes;
-      this.copiaPaquetes = [];
+      this.homebrewService.getAll();
+      this.reiniciarFiltrosLista();
     } else if (opcion.selecciono) {
       this.agregarFiltroPorLicencia(opcion.valor);
     } else {
@@ -133,8 +141,8 @@ export class AppComponent implements OnInit {
     this.sistemasOperativosSeleccionados = seleccionados;
 
     if (this.sistemasOperativosSeleccionados.length === 0) {
-      this.paquetes = this.copiaPaquetes;
-      this.copiaPaquetes = [];
+      this.homebrewService.getAll();
+      this.reiniciarFiltrosLista();
     } else if (opcion.selecciono) {
       this.agregarFiltroPorSistemaOperativo(opcion.valor);
     } else {
@@ -168,15 +176,20 @@ export class AppComponent implements OnInit {
     );
   }
 
-  verificarFiltros() {
-    if (this.sistemasOperativosSeleccionados.length > 0) {
-      this.sistemasOperativosSeleccionados.forEach((so) =>
-        this.agregarFiltroPorSistemaOperativo(so)
-      );
+  reiniciarFiltrosLista() {
+    if (this.busqueda) {
+      this.buscarPaquete(this.busqueda);
     }
+
     if (this.licenciasSeleccionadas.length > 0) {
       this.licenciasSeleccionadas.forEach((l) =>
         this.agregarFiltroPorLicencia(l)
+      );
+    }
+
+    if (this.sistemasOperativosSeleccionados.length > 0) {
+      this.sistemasOperativosSeleccionados.forEach((os) =>
+        this.agregarFiltroPorSistemaOperativo(os)
       );
     }
   }

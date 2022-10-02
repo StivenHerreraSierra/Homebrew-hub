@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Paquete, PaqueteRespuesta } from '../models/package.model';
-import { map, Subject } from 'rxjs';
+import { catchError, map, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 const _ = require('lodash');
@@ -50,8 +50,8 @@ export class HomebrewService {
 
           this.paquetes.next(this.listaPaquetes);
         },
-        error: (err) => err,
-      });
+        error: ((err) => err),
+    });
   }
 
   getAnalytics(nombrePaquete: string) {
