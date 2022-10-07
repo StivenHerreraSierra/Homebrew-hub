@@ -103,3 +103,15 @@ export const LICENCIAS: string[] = [
 ];
 
 export const SISTEMAS_OPERATIVOS = ["Linux", "MacOS"];
+
+export const CATEGORIAS = new Map([
+  ["Audio", "audio"],
+  ["Contenedores", "container"],
+  ["Bases de datos", "database"],
+  ["Desarrollo", "development"],
+  ["Juegos", "games"],
+  ["Música", "music"],
+  ["Redes", "network"],
+  ["Editor de texto", "text editor"],
+  ["Web", "web"]
+]);

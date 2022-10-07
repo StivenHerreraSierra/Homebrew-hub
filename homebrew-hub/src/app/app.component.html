@@ -28,6 +28,12 @@
     <aside class="sidenav">
       <h3>Filtros</h3>
       <app-filtro-checkbox
+        titulo="Categorías"
+        [items]="categoriasFiltro"
+        [itemsSeleccionados]="categoriasSeleccionadas"
+        (eventoFiltrar)="filtrarPorCategoriasHandler($event)"
+      ></app-filtro-checkbox>
+      <app-filtro-checkbox
         titulo="Licencias"
         [items]="licencias"
         [itemsSeleccionados]="licenciasSeleccionadas"

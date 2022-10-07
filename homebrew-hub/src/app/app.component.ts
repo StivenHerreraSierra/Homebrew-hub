@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Paquete } from './models/package.model';
 import { HomebrewService } from './services/homebrew.service';
-import { LICENCIAS, SISTEMAS_OPERATIVOS } from '../assets/itemsFiltro';
+import { CATEGORIAS, LICENCIAS, SISTEMAS_OPERATIVOS } from '../assets/itemsFiltro';
 import { CuerpoEventoFiltrar } from './components/filtro-checkbox/filtro-checkbox.component';
 
 const ITEMS_PAGINA = 20;
@@ -31,6 +31,9 @@ export class AppComponent implements OnInit {
 
   sistemasOperativosSeleccionados: string[] = [];
   sistemasOperativos = SISTEMAS_OPERATIVOS;
+
+  categoriasSeleccionadas: string[] = [];
+  categorias = CATEGORIAS;
 
   constructor(private homebrewService: HomebrewService) {}
 
@@ -176,7 +179,45 @@ export class AppComponent implements OnInit {
     );
   }
 
+  get categoriasFiltro(): string[] {
+    return [...this.categorias.keys()];
+  }
+
+  filtrarPorCategoriasHandler(cuerpo: CuerpoEventoFiltrar) {
+    const { opcion, seleccionados } = cuerpo;
+
+    this.categoriasSeleccionadas = seleccionados;
+
+    if (this.categoriasSeleccionadas.length === 0 || !opcion.selecciono) {
+      this.homebrewService.getAll();
+      this.reiniciarFiltrosLista();
+    } else {
+      this.agregarFiltroPorCategoria(this.categorias.get(opcion.valor)!);
+    }
+
+    this.actualizarPagina(0);
+  }
+
+  agregarFiltroPorCategoria(valor: string) {
+    if (this.categoriasSeleccionadas.length === 1) {
+      this.copiaPaquetes = this.paquetes;
+      this.paquetes = this.filtrarPorCategoria(valor, []);
+    } else {
+      this.paquetes = this.filtrarPorCategoria(valor, this.paquetes);
+    }
+  }
+
+  filtrarPorCategoria(categoria: string, paquetesActual: Paquete[]): Paquete[] {
+    return this.homebrewService.filtrarPorCategoria(
+      categoria,
+      this.copiaPaquetes,
+      paquetesActual
+    );
+  }
+
   reiniciarFiltrosLista() {
+    console.log("Reiniciar");
+
     if (this.busqueda) {
       this.buscarPaquete(this.busqueda);
     }
@@ -190,6 +231,12 @@ export class AppComponent implements OnInit {
     if (this.sistemasOperativosSeleccionados.length > 0) {
       this.sistemasOperativosSeleccionados.forEach((os) =>
         this.agregarFiltroPorSistemaOperativo(os)
+      );
+    }
+
+    if (this.categoriasSeleccionadas.length > 0) {
+      this.categoriasSeleccionadas.forEach((c) =>
+        this.agregarFiltroPorCategoria(this.categorias.get(c)!)
       );
     }
   }

@@ -144,4 +144,28 @@ export class HomebrewService {
 
     return listaFiltrada;
   }
+
+  filtrarPorCategoria(categoria: string, paquetes: Paquete[], listaActual: Paquete[]) {
+    const categoriaAux = categoria.toLowerCase();
+
+    let paquetesFiltrados = paquetes.filter(
+      (paquete) =>
+        paquete.desc && paquete.desc.toLowerCase().includes(categoriaAux)
+    );
+
+    paquetesFiltrados = [...new Set([...listaActual, ...paquetesFiltrados])];
+
+    return paquetesFiltrados;
+  }
+
+  removerFiltroPorCategoria(categoria: string, listaActual: Paquete[]) {
+    const categoriaAux = categoria.toLowerCase();
+
+    //Obtiene los paquetes que cumplen.
+    var listaFiltrada: Paquete[] = listaActual.filter(
+      (p) => p.desc && !p.desc.toLocaleLowerCase().includes(categoriaAux)
+    );
+
+    return listaFiltrada;
+  }
 }
