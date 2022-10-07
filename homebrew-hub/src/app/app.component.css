@@ -1,8 +1,3 @@
-.section {
-  box-sizing: border-box;
-  height: max-content;
-}
-
 * {
   padding: 0;
   margin: 0;
@@ -48,6 +43,7 @@ p {
   background-color: #3a8bdb;
   font-weight: 600;
   min-width: 100%;
+  max-width: fit-content;
   padding: 0 25px;
   box-sizing: border-box;
 }
@@ -57,21 +53,6 @@ p {
   color: white;
 }
 
-.toolbar #twitter-logo {
-  height: 40px;
-  margin: 0 8px;
-}
-
-.toolbar #youtube-logo {
-  height: 40px;
-  margin: 0 16px;
-}
-
-.toolbar #twitter-logo:hover,
-.toolbar #youtube-logo:hover {
-  opacity: 0.8;
-}
-
 .content {
   display: flex;
   width: 100%;
@@ -79,50 +60,6 @@ p {
   align-items: center;
   box-sizing: border-box;
   height: 100vh;
-}
-
-svg.material-icons {
-  height: 24px;
-  width: auto;
-}
-
-svg.material-icons:not(:last-child) {
-  margin-right: 8px;
-}
-
-svg#rocket {
-  width: 80px;
-  position: absolute;
-  left: -10px;
-  top: -24px;
-}
-
-svg#rocket-smoke {
-  height: calc(100vh - 95px);
-  position: absolute;
-  top: 10px;
-  right: 180px;
-  z-index: -10;
-}
-
-.circle-link {
-  height: 40px;
-  width: 40px;
-  border-radius: 40px;
-  margin: 8px;
-  background-color: white;
-  border: 1px solid #eeeeee;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-  transition: 1s ease-out;
-}
-
-.circle-link:hover {
-  transform: translateY(-0.25rem);
-  box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
 }
 
 footer {
@@ -135,36 +72,6 @@ footer {
 footer a {
   display: flex;
   align-items: center;
-}
-
-svg#clouds {
-  position: fixed;
-  bottom: -160px;
-  left: -230px;
-  z-index: -10;
-  width: 1920px;
-}
-
-/* Responsive Styles */
-@media screen and (max-width: 767px) {
-  .card-container > *:not(.circle-link),
-  .terminal {
-    width: 100%;
-  }
-
-  .card:not(.highlight-card) {
-    height: 16px;
-    margin: 8px 0;
-  }
-
-  .card.highlight-card span {
-    margin-left: 72px;
-  }
-
-  svg#rocket-smoke {
-    right: 120px;
-    transform: rotate(-5deg);
-  }
 }
 
 @media screen and (max-width: 575px) {
@@ -186,11 +93,14 @@ svg#clouds {
   flex-basis: 20%;
   background-color: transparent;
   padding: 0 5px;
+  max-height: calc(100vh - 40px);
 }
 
 .section {
   flex-basis: 80%;
   background-color: transparent;
+  box-sizing: border-box;
+  height: max-content;
 }
 
 .inline {

@@ -102,13 +102,11 @@ export class AppComponent implements OnInit {
 
     this.licenciasSeleccionadas = seleccionados;
 
-    if (this.licenciasSeleccionadas.length === 0) {
+    if (this.licenciasSeleccionadas.length === 0 || !opcion.selecciono) {
       this.homebrewService.getAll();
       this.reiniciarFiltrosLista();
-    } else if (opcion.selecciono) {
-      this.agregarFiltroPorLicencia(opcion.valor);
     } else {
-      this.removerFiltroPorLicencia(opcion.valor);
+      this.agregarFiltroPorLicencia(opcion.valor);
     }
 
     this.actualizarPagina(0);
@@ -121,13 +119,6 @@ export class AppComponent implements OnInit {
     } else {
       this.paquetes = this.filtrarPorLicencia(valor, this.paquetes);
     }
-  }
-
-  removerFiltroPorLicencia(valor: string) {
-    this.paquetes = this.homebrewService.removerFiltroPorLicencia(
-      valor,
-      this.paquetes
-    );
   }
 
   filtrarPorLicencia(licencia: string, paquetesActual: Paquete[]): Paquete[] {
@@ -216,8 +207,6 @@ export class AppComponent implements OnInit {
   }
 
   reiniciarFiltrosLista() {
-    console.log("Reiniciar");
-
     if (this.busqueda) {
       this.buscarPaquete(this.busqueda);
     }
