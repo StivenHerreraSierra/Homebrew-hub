@@ -102,31 +102,24 @@ export class AppComponent implements OnInit {
 
     this.licenciasSeleccionadas = seleccionados;
 
-    if (this.licenciasSeleccionadas.length === 0 || !opcion.selecciono) {
-      this.homebrewService.getAll();
-      this.reiniciarFiltrosLista();
-    } else {
-      this.agregarFiltroPorLicencia(opcion.valor);
-    }
+    this.homebrewService.getAll();
+    this.reiniciarFiltrosLista();
 
     this.actualizarPagina(0);
   }
 
-  agregarFiltroPorLicencia(valor: string) {
-    if (this.licenciasSeleccionadas.length === 1) {
-      this.copiaPaquetes = this.paquetes;
-      this.paquetes = this.filtrarPorLicencia(valor, []);
-    } else {
-      this.paquetes = this.filtrarPorLicencia(valor, this.paquetes);
-    }
-  }
+  filtrarPorLicencia() {
+    var listaFiltrada: Paquete[] = [];
 
-  filtrarPorLicencia(licencia: string, paquetesActual: Paquete[]): Paquete[] {
-    return this.homebrewService.filtrarPorLicencia(
-      licencia,
-      this.copiaPaquetes,
-      paquetesActual
+    this.licenciasSeleccionadas.forEach(l => 
+      listaFiltrada = this.homebrewService.filtrarPorLicencia(
+        l,
+        this.paquetes,
+        listaFiltrada
+      )
     );
+
+    this.paquetes = listaFiltrada;
   }
 
   filtrarPorSistemaOperativoHandler(cuerpo: CuerpoEventoFiltrar) {
@@ -134,40 +127,24 @@ export class AppComponent implements OnInit {
 
     this.sistemasOperativosSeleccionados = seleccionados;
 
-    if (this.sistemasOperativosSeleccionados.length === 0) {
-      this.homebrewService.getAll();
-      this.reiniciarFiltrosLista();
-    } else if (opcion.selecciono) {
-      this.agregarFiltroPorSistemaOperativo(opcion.valor);
-    } else {
-      this.removerFiltroPorSistemaOperativo(opcion.valor);
-    }
+    this.homebrewService.getAll();
+    this.reiniciarFiltrosLista();
 
     this.actualizarPagina(0);
   }
 
-  agregarFiltroPorSistemaOperativo(valor: string) {
-    if (this.sistemasOperativosSeleccionados.length === 1) {
-      this.copiaPaquetes = this.paquetes;
-      this.paquetes = this.filtrarPorSistemaOperativo(valor, []);
-    } else {
-      this.paquetes = this.filtrarPorSistemaOperativo(valor, this.paquetes);
-    }
-  }
+  filtrarPorSistemaOperativo() {
+    var listaFiltrada: Paquete[] = [];
 
-  removerFiltroPorSistemaOperativo(valor: string) {
-    this.paquetes = this.homebrewService.removerFiltroPorSistemaOperativo(
-      valor,
-      this.paquetes
+    this.sistemasOperativosSeleccionados.forEach(so =>
+      listaFiltrada = this.homebrewService.filtrarPorSistemaOperativo(
+        so,
+        this.paquetes,
+        listaFiltrada
+      )
     );
-  }
 
-  filtrarPorSistemaOperativo(so: string, paquetesActual: Paquete[]): Paquete[] {
-    return this.homebrewService.filtrarPorSistemaOperativo(
-      so,
-      this.copiaPaquetes,
-      paquetesActual
-    );
+    this.paquetes = listaFiltrada;
   }
 
   get categoriasFiltro(): string[] {
@@ -179,31 +156,24 @@ export class AppComponent implements OnInit {
 
     this.categoriasSeleccionadas = seleccionados;
 
-    if (this.categoriasSeleccionadas.length === 0 || !opcion.selecciono) {
-      this.homebrewService.getAll();
-      this.reiniciarFiltrosLista();
-    } else {
-      this.agregarFiltroPorCategoria(this.categorias.get(opcion.valor)!);
-    }
+    this.homebrewService.getAll();
+    this.reiniciarFiltrosLista();
 
     this.actualizarPagina(0);
   }
 
-  agregarFiltroPorCategoria(valor: string) {
-    if (this.categoriasSeleccionadas.length === 1) {
-      this.copiaPaquetes = this.paquetes;
-      this.paquetes = this.filtrarPorCategoria(valor, []);
-    } else {
-      this.paquetes = this.filtrarPorCategoria(valor, this.paquetes);
-    }
-  }
+  filtrarPorCategoria() {
+    var listaFiltrada: Paquete[] = [];
 
-  filtrarPorCategoria(categoria: string, paquetesActual: Paquete[]): Paquete[] {
-    return this.homebrewService.filtrarPorCategoria(
-      categoria,
-      this.copiaPaquetes,
-      paquetesActual
+    this.categoriasSeleccionadas.forEach(c => 
+      listaFiltrada = this.homebrewService.filtrarPorCategoria(
+        c,
+        this.paquetes,
+        listaFiltrada
+      )
     );
+
+    this.paquetes = listaFiltrada;
   }
 
   reiniciarFiltrosLista() {
@@ -212,21 +182,15 @@ export class AppComponent implements OnInit {
     }
 
     if (this.licenciasSeleccionadas.length > 0) {
-      this.licenciasSeleccionadas.forEach((l) =>
-        this.agregarFiltroPorLicencia(l)
-      );
+      this.filtrarPorLicencia();
     }
 
     if (this.sistemasOperativosSeleccionados.length > 0) {
-      this.sistemasOperativosSeleccionados.forEach((os) =>
-        this.agregarFiltroPorSistemaOperativo(os)
-      );
+      this.filtrarPorSistemaOperativo();
     }
 
     if (this.categoriasSeleccionadas.length > 0) {
-      this.categoriasSeleccionadas.forEach((c) =>
-        this.agregarFiltroPorCategoria(this.categorias.get(c)!)
-      );
+      this.filtrarPorCategoria();
     }
   }
 }
