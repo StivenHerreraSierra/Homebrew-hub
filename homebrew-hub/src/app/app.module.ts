@@ -22,6 +22,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FiltroCheckboxComponent } from './components/filtro-checkbox/filtro-checkbox.component';
+import { HomeComponent } from './views/home/home.component';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,8 @@ import { FiltroCheckboxComponent } from './components/filtro-checkbox/filtro-che
     ListaItemComponent,
     BuscadorComponent,
     FiltroCheckboxComponent,
+    HomeComponent,
+    ToolbarComponent,
   ],
   imports: [
     BrowserModule,

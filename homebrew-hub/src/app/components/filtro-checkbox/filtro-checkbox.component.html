@@ -1,11 +1,11 @@
 <form>
   <div>
-    <h4>{{ titulo }}</h4>
+    <h4 clas>{{ titulo }}</h4>
     <mat-selection-list
       class="filtro-container"
       name="filtro"
       [(ngModel)]="itemsSeleccionados"
-      (selectionChange)="filtrar($event)"
+      (selectionChange)="filtrar()"
     >
       <mat-list-option
         class="filtro__opcion"

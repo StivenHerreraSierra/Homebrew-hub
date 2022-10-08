@@ -1,74 +1,14 @@
 <!-- Toolbar -->
-<div class="toolbar" role="banner">
-  <a routerLink="" class="inline">
-    <img width="45" alt="Homebrew Logo" src="../assets/homebrew.png" />
-    <h1 class="toolbar__titulo">
-      Homebrew <span style="color: #ccc">hub</span>
-    </h1>
-  </a>
+<app-home></app-home>
 
-  <app-buscador (eventoBuscar)="buscarPaquete($event)"></app-buscador>
-
-  <div class="spacer"></div>
-
+<div>
+  Cuéntanos tu experiencia usando HomebrewHub. &nbsp;
   <a
-    aria-label="Repositorio en GitHub"
-    target="_blank"
     href="https://github.com/StivenHerreraSierra/Homebrew-hub"
-    title="Ir a GitHub"
-    class="inline"
+    target="_blank"
+    rel="noopener"
   >
-    <img src="../assets/github_moderno.png" width="50" />
-    <span class="a__text">GitHub</span>
+    GitHub
+    <img src="../assets/github.png" alt="" width="30" />
   </a>
-</div>
-
-<div class="content" role="main">
-  <div class="flex">
-    <aside class="sidenav">
-      <h3>Filtros</h3>
-      <app-filtro-checkbox
-        titulo="Categorías"
-        [items]="categoriasFiltro"
-        [itemsSeleccionados]="categoriasSeleccionadas"
-        (eventoFiltrar)="filtrarPorCategoriasHandler($event)"
-      ></app-filtro-checkbox>
-      <app-filtro-checkbox
-        titulo="Licencias"
-        [items]="licencias"
-        [itemsSeleccionados]="licenciasSeleccionadas"
-        (eventoFiltrar)="filtrarPorLicenciaHandler($event)"
-      ></app-filtro-checkbox>
-      <app-filtro-checkbox
-        titulo="Sistema Operativo"
-        [items]="sistemasOperativos"
-        [itemsSeleccionados]="sistemasOperativosSeleccionados"
-        (eventoFiltrar)="filtrarPorSistemaOperativoHandler($event)"
-      ></app-filtro-checkbox>
-    </aside>
-    <section class="section">
-      <p>
-        {{ indicePrimerItem + 1 }} - {{ indiceUltimoItem }} de
-        {{ totalPaquetes }} resultados disponibles
-      </p>
-      <app-lista
-        [paquetes]="paquetesPagina"
-        [totalPaquetes]="totalPaquetes"
-        (eventoPaginador)="actualizarPagina($event)"
-      ></app-lista>
-    </section>
-  </div>
-
-  <!-- Footer -->
-  <footer>
-    Cuéntamos tu experiencia usando HomebrewHub. &nbsp;
-    <a
-      href="https://github.com/StivenHerreraSierra/Homebrew-hub"
-      target="_blank"
-      rel="noopener"
-    >
-      GitHub
-      <img src="../assets/github.png" alt="" width="30" />
-    </a>
-  </footer>
 </div>

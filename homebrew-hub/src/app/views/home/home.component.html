@@ -1,0 +1,41 @@
+<app-toolbar>
+  <app-buscador (eventoBuscar)="buscarPaquete($event)"></app-buscador>
+</app-toolbar>
+
+<div class="content" role="main">
+  <div class="flex">
+    <aside class="sidenav">
+      <h3>Filtros</h3>
+      <app-filtro-checkbox
+        titulo="Categorías"
+        [items]="categoriasFiltro"
+        [itemsSeleccionados]="categoriasSeleccionadas"
+        (eventoFiltrar)="filtrarPorCategoriasHandler($event)"
+      ></app-filtro-checkbox>
+      <app-filtro-checkbox
+        titulo="Licencias"
+        [items]="licencias"
+        [itemsSeleccionados]="licenciasSeleccionadas"
+        (eventoFiltrar)="filtrarPorLicenciaHandler($event)"
+      ></app-filtro-checkbox>
+      <app-filtro-checkbox
+        titulo="Sistema Operativo"
+        [items]="sistemasOperativos"
+        [itemsSeleccionados]="sistemasOperativosSeleccionados"
+        (eventoFiltrar)="filtrarPorSistemaOperativoHandler($event)"
+      ></app-filtro-checkbox>
+    </aside>
+
+    <section class="section">
+      <p>
+        {{ indicePrimerItem + 1 }} - {{ indiceUltimoItem }} de
+        {{ totalPaquetes }} resultados disponibles
+      </p>
+      <app-lista
+        [paquetes]="paquetesPagina"
+        [totalPaquetes]="totalPaquetes"
+        (eventoPaginador)="actualizarPagina($event)"
+      ></app-lista>
+    </section>
+  </div>
+</div>

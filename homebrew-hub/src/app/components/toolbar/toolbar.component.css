@@ -1,0 +1,39 @@
+.toolbar {
+  display: block;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  background-color: #3a8bdb;
+  font-weight: 600;
+  min-width: 100%;
+  max-width: fit-content;
+  padding: 0 25px;
+  box-sizing: border-box;
+}
+
+.toolbar__titulo {
+  margin-right: 20px;
+  color: white;
+}
+
+.inline {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.inline:hover {
+  text-shadow: 0 0 rgba(51, 51, 51, 1);
+  scale: 1.1;
+}
+
+.a__text {
+  color: white;
+  font-size: 20px;
+  font-weight: normal;
+}
