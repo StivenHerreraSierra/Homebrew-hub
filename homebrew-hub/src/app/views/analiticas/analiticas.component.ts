@@ -1,7 +1,6 @@
-import { Component, OnInit, SimpleChange, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Chart } from 'chart.js';
-import { BaseChartDirective } from 'ng2-charts';
-import { Analitica, ChartBarData } from 'src/app/models/package.model';
+import { Analitica } from 'src/app/models/package.model';
 import { HomebrewService } from 'src/app/services/homebrew.service';
 
 const BACKGROUND_COLOR = [
@@ -24,58 +23,50 @@ const BORDER_WIDTH = 1;
   styleUrls: ['./analiticas.component.css'],
 })
 export class AnaliticasComponent implements OnInit {
-  @ViewChild('canvas') canvas!: BaseChartDirective;
+  @ViewChild('chartMac') chartMacElement!: ElementRef
+  @ViewChild('chartLinux') chartLinuxElement!: ElementRef
 
-  data30d: Analitica = {} as Analitica;
-  data90d: Analitica = {} as Analitica;
-  data365d: Analitica = {} as Analitica;
-  totales: number[] = [];
-  chart: any = [];
-
-  data = {
-    labels: ["1", "2", "3"],
-    datasets: [{
-      backgroundColor: [
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-      ],
-      borderColor: [
-        'rgb(255, 99, 132)',
-        'rgb(75, 192, 192)',
-        'rgb(153, 102, 255)',
-      ],
-      borderWidth: 1,
-      data: this.totales,
-      label: "Total",
-    }]
-  } as ChartBarData;
+  data30dMac: Analitica = {} as Analitica;
+  data90dMac: Analitica = {} as Analitica;
+  data365dMac: Analitica = {} as Analitica;
+  data30dLinux: Analitica = {} as Analitica;
+  data90dLinux: Analitica = {} as Analitica;
+  data365dLinux: Analitica = {} as Analitica;
+  macTotales: number[] = [];
+  linuxTotales: number[] = [];
+  chartMac: any = [];
+  chartLinux: any = [];
 
   constructor(private homebrewService: HomebrewService) {}
 
   ngOnInit(): void {
+    this.cargarAnaliticasMac();
+    this.cargarAnaliticasLinux();
+  }
+
+  cargarAnaliticasMac() {
     this.homebrewService
-      .getAnaliticas(30)
+      .getMacOsAnaliticas(30)
       .subscribe({
-        next: (data) => (this.data30d = data),
+        next: (data) => (this.data30dMac = data),
         complete: () => {
           this.homebrewService
-            .getAnaliticas(90)
+            .getMacOsAnaliticas(90)
             .subscribe({
-              next: (data) => (this.data90d = data),
+              next: (data) => (this.data90dMac = data),
               complete: () => {
                 this.homebrewService
-                .getAnaliticas(365)
+                .getMacOsAnaliticas(365)
                 .subscribe({
-                  next: (data) => (this.data365d = data),
+                  next: (data) => (this.data365dMac = data),
                   complete: () => {
-                    this.totales = [
-                      this.data30d.total_count,
-                      this.data90d.total_count,
-                      this.data365d.total_count
+                    this.macTotales = [
+                      this.data30dMac.total_count,
+                      this.data90dMac.total_count,
+                      this.data365dMac.total_count
                     ];
 
-                    this.iniciarChart();
+                    this.iniciarChartMac();
                   },
                   error: (err) => console.error(err),
                 });
@@ -87,9 +78,53 @@ export class AnaliticasComponent implements OnInit {
       });
   }
 
-  iniciarChart() {
-    this.chart = new Chart(
-      'chart',
+  cargarAnaliticasLinux() {
+    this.homebrewService
+      .getLinuxAnaliticas(30)
+      .subscribe({
+        next: (data) => (this.data30dLinux = data),
+        complete: () => {
+          this.homebrewService
+            .getLinuxAnaliticas(90)
+            .subscribe({
+              next: (data) => (this.data90dLinux = data),
+              complete: () => {
+                this.homebrewService
+                .getLinuxAnaliticas(365)
+                .subscribe({
+                  next: (data) => (this.data365dLinux = data),
+                  complete: () => {
+                    this.linuxTotales = [
+                      this.data30dLinux.total_count,
+                      this.data90dLinux.total_count,
+                      this.data365dLinux.total_count
+                    ];
+
+                    this.iniciarChartLinux();
+                  },
+                  error: (err) => console.error(err),
+                });
+              },
+              error: (err) => console.error(err),
+            });
+        },
+        error: (err) => console.error(err),
+      });
+  }
+
+  iniciarChartMac() {
+    var c = this.chartMacElement.nativeElement.getContext('2d');
+    this.chartMac = this.iniciarChart(c, this.macTotales);
+  }
+
+  iniciarChartLinux() {
+    var c = this.chartLinuxElement.nativeElement.getContext('2d');
+    this.chartLinux = this.iniciarChart(c, this.linuxTotales);
+  }
+
+  iniciarChart(ctx: any, data: number[]) {
+    return new Chart(
+      ctx,
       {
         'type': 'bar',
         options: {
@@ -104,7 +139,7 @@ export class AnaliticasComponent implements OnInit {
           datasets: [
             {
               label: "Total instalaciones",
-              data: this.totales,
+              data: data,
               backgroundColor: BACKGROUND_COLOR,
               borderColor: BORDER_COLOR,
               borderWidth: BORDER_WIDTH,

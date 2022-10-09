@@ -13,6 +13,11 @@ import { NgChartsModule } from 'ng2-charts';
 import { ListaComponent } from './components/lista/lista.component';
 import { ListaItemComponent } from './components/lista-item/lista-item.component';
 import { BuscadorComponent } from './components/buscador/buscador.component';
+import { FiltroCheckboxComponent } from './components/filtro-checkbox/filtro-checkbox.component';
+import { HomeComponent } from './views/home/home.component';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { AnaliticasComponent } from './views/analiticas/analiticas.component';
+import { TablaTopComponent } from './components/tabla-top/tabla-top.component';
 
 //Material
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -24,12 +29,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { FiltroCheckboxComponent } from './components/filtro-checkbox/filtro-checkbox.component';
-import { HomeComponent } from './views/home/home.component';
-import { ToolbarComponent } from './components/toolbar/toolbar.component';
-import { AnaliticasComponent } from './views/analiticas/analiticas.component';
-import { ListaTopComponent } from './components/lista-top/lista-top.component';
-import { ItemTopComponent } from './components/item-top/item-top.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatTabsModule } from '@angular/material/tabs';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -41,8 +43,7 @@ import { ItemTopComponent } from './components/item-top/item-top.component';
     HomeComponent,
     ToolbarComponent,
     AnaliticasComponent,
-    ListaTopComponent,
-    ItemTopComponent,
+    TablaTopComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,6 +64,9 @@ import { ItemTopComponent } from './components/item-top/item-top.component';
     MatFormFieldModule,
     MatInputModule,
     MatCheckboxModule,
+    MatTableModule,
+    MatTabsModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

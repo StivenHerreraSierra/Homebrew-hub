@@ -171,27 +171,7 @@ export class HomebrewService {
     return listaFiltrada;
   }
 
-  getAllAnaliticasMac() {
-    let analiticas: Analitica[] = [];
-
-    this.getAnaliticas(30).subscribe({
-      next: (data: Analitica) => analiticas.push(data),
-      complete: () => {
-        this.getAnaliticas(90).subscribe({
-          next: (data: Analitica) => analiticas.push(data),
-          complete: () => {
-            this.getAnaliticas(90).subscribe({
-              next: (data: Analitica) => analiticas.push(data)
-            });
-          },
-        });
-      },
-    });
-
-    return analiticas;
-  }
-
-  getAnaliticas(dias: number) {
+  getMacOsAnaliticas(dias: number) {
     return this.http
       .get<Analitica>(`${environment.api}analytics/install/${dias}d.json`)
       .pipe<Analitica>(
@@ -205,5 +185,21 @@ export class HomebrewService {
           } as Analitica;
         })
       );
+  }
+
+  getLinuxAnaliticas(dias: number) {
+    return this.http
+    .get<Analitica>(`${environment.api}analytics-linux/install/${dias}d.json`)
+    .pipe<Analitica>(
+      map((data: Analitica) => {
+        return {
+          total_items: data.total_items,
+          start_date: data.start_date,
+          end_date: data.end_date,
+          total_count: data.total_count,
+          items: data.items.slice(0, 10),
+        } as Analitica;
+      })
+    );
   }
 }

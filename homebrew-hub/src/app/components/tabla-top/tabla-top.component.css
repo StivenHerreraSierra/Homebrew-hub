@@ -1,4 +1,4 @@
-.list-container {
+.tabla-container {
   background-color: rgb(214, 214, 214);
   border-radius: 5px;
   margin: 40px 0;
@@ -6,20 +6,24 @@
   overflow: hidden;
 }
 
-.list-container__header {
-  padding: 10px;
+.tabla-container__header {
+  padding: 10px 20px;
   border-radius: 5px 5px 0px 0px;
   background-color: rgb(165, 165, 165);
   margin: 0;
 }
 
-.list-container__title {
+.tabla-container__title {
   margin: 0;
 }
 
-.list-container__date {
+.tabla-container__date {
   font-style: italic;
   height: 100%;
   margin: 0;
   color: rgb(51, 51, 51);
+}
+
+.tabla {
+  width: 100%;
 }
