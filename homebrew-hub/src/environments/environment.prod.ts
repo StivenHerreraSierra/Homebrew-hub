@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  api: 'http://localhost:4000/api',
+  api: 'https://homebrewhub-api.netlify.app',
 };
