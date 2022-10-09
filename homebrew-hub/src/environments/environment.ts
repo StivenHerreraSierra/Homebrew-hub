@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  api: 'https://homebrewhub-api.onrender.com',
+  api: 'https://homebrewhub-api.onrender.com/api',
 };
 
 /*
