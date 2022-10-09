@@ -1,11 +1,8 @@
-<mat-list-item
-  role="listitem"
-  class="list-item"
-  *ngFor="let item of [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]; index"
->
+<mat-list-item role="listitem" class="list-item">
   <div class="inline">
-    <h4>Nombre del paquete</h4>
+    <h4>{{ item.formula }}</h4>
     <img
+      *ngIf="item.count === '#1'"
       class="list-item__img"
       width="30"
       src="../../../assets/gold-medal.png"
@@ -13,10 +10,10 @@
   </div>
   <div class="spacer"></div>
   <p class="inline list-item__percent" title="Porcentaje sobre el total">
-    2.25%
+    {{ item.percent }}
   </p>
   <p class="inline list-item__count" title="Total de instalaciones">
-    455000
+    {{ item.count }}
     <span class="material-icons"> file_download </span>
   </p>
 </mat-list-item>

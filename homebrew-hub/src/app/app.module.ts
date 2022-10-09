@@ -28,7 +28,6 @@ import { FiltroCheckboxComponent } from './components/filtro-checkbox/filtro-che
 import { HomeComponent } from './views/home/home.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { AnaliticasComponent } from './views/analiticas/analiticas.component';
-import { BarChartComponent } from './components/bar-chart/bar-chart.component';
 import { ListaTopComponent } from './components/lista-top/lista-top.component';
 import { ItemTopComponent } from './components/item-top/item-top.component';
 
@@ -42,7 +41,6 @@ import { ItemTopComponent } from './components/item-top/item-top.component';
     HomeComponent,
     ToolbarComponent,
     AnaliticasComponent,
-    BarChartComponent,
     ListaTopComponent,
     ItemTopComponent,
   ],

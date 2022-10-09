@@ -4,6 +4,21 @@
     <span class="material-icons"> trending_up </span>
     Analíticas
   </h2>
-  <app-bar-chart title="Total de Instalaciones" [data]="data"></app-bar-chart>
-  <app-lista-top *ngFor="let v of [1, 2, 3]"></app-lista-top>
+  <div class="chart">
+    <canvas id="chart">{{ chart }}</canvas>
+  </div>
+  <app-lista-top
+    title="Top 10 últimos 30 días"
+    [data]="data30d"
+  ></app-lista-top>
+
+  <app-lista-top
+    title="Top 10 últimos 90 días"
+    [data]="data90d"
+  ></app-lista-top>
+
+  <app-lista-top
+    title="Top 10 últimos 365 días"
+    [data]="data365d"
+  ></app-lista-top>
 </div>

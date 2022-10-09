@@ -6,3 +6,8 @@
   font-size: 25px;
   color: rgb(34, 34, 34);
 }
+
+.chart {
+  width: 600px;
+  margin: 0 auto;
+}

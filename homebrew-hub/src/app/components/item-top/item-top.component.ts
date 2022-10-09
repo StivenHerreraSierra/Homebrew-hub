@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { PaquetesAnalitica } from 'src/app/models/package.model';
 
 @Component({
   selector: 'app-item-top',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./item-top.component.css']
 })
 export class ItemTopComponent implements OnInit {
+  @Input() item: PaquetesAnalitica = {} as PaquetesAnalitica;
 
   constructor() { }
 

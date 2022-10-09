@@ -1,13 +1,13 @@
 <div class="list-container">
   <div class="inline list-container__header">
-    <h3 class="list-container__title">Top 10 últimos 30 días</h3>
+    <h3 class="list-container__title">{{ title }}</h3>
     <div class="spacer"></div>
     <p class="list-container__date">
-      <span class="bold">Desde:</span> 08/10/2022 -
-      <span class="bold">Hasta:</span> 08/11/2022
+      <span class="bold">Desde:</span> {{ data.start_date }} -
+      <span class="bold">Hasta:</span> {{ data.end_date }}
     </p>
   </div>
   <mat-list role="list">
-    <app-item-top></app-item-top>
+    <app-item-top *ngFor="let item of data.items" [item]="item"></app-item-top>
   </mat-list>
 </div>

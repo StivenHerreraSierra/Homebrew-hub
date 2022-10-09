@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Analitica } from 'src/app/models/package.model';
 
 @Component({
   selector: 'app-lista-top',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./lista-top.component.css']
 })
 export class ListaTopComponent implements OnInit {
+  @Input() title: string = "";
+  @Input() data: Analitica = {} as Analitica;
 
   constructor() { }
 
