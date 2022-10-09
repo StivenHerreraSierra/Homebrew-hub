@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  api: 'https://formulae.brew.sh/api/',
+  api: 'http://localhost:4000/api',
 };
 
 /*

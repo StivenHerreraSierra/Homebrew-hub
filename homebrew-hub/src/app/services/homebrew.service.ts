@@ -19,7 +19,7 @@ export class HomebrewService {
 
   getAll() {
     return this.http
-      .get<PaqueteRespuesta[]>(environment.api + 'formula.json')
+      .get<PaqueteRespuesta[]>(`${environment.api}/all`)
       .subscribe({
         next: (res: PaqueteRespuesta[]) => {
           this.listaPaquetes = [];
@@ -50,26 +50,6 @@ export class HomebrewService {
         },
         error: (err) => err,
       });
-  }
-
-  getAnalytics(nombrePaquete: string) {
-    this.http
-      .get<PaqueteRespuesta>(`${environment.api}formula/${nombrePaquete}.json`)
-      .pipe(map((data: PaqueteRespuesta) => data.analytics));
-  }
-
-  getLinuxAnalytics(nombrePaquete: string) {
-    this.http
-      .get<PaqueteRespuesta>(
-        `${environment.api}formula/${nombrePaquete}.json`,
-        {
-          headers: new HttpHeaders({
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': 'https://formulae.brew.sh/api/',
-          }),
-        }
-      )
-      .pipe(map((data: PaqueteRespuesta) => data['analytics-linux']));
   }
 
   filtrarPorBusqueda(busqueda: string): Paquete[] {
@@ -173,7 +153,9 @@ export class HomebrewService {
 
   getMacOsAnaliticas(dias: number) {
     return this.http
-      .get<Analitica>(`${environment.api}analytics/install/${dias}d.json`)
+      .get<Analitica>(
+        `${environment.api}/analytics/${dias}d`,
+      )
       .pipe<Analitica>(
         map((data: Analitica) => {
           return {
@@ -189,7 +171,9 @@ export class HomebrewService {
 
   getLinuxAnaliticas(dias: number) {
     return this.http
-    .get<Analitica>(`${environment.api}analytics-linux/install/${dias}d.json`)
+    .get<Analitica>(
+      `${environment.api}/analytics-linux/${dias}d`
+    )
     .pipe<Analitica>(
       map((data: Analitica) => {
         return {
