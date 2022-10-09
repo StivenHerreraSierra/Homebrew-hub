@@ -1,0 +1,8 @@
+.container {
+  padding: 30px;
+}
+
+.container__title {
+  font-size: 25px;
+  color: rgb(34, 34, 34);
+}

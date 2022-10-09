@@ -1,0 +1,22 @@
+<mat-list-item
+  role="listitem"
+  class="list-item"
+  *ngFor="let item of [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]; index"
+>
+  <div class="inline">
+    <h4>Nombre del paquete</h4>
+    <img
+      class="list-item__img"
+      width="30"
+      src="../../../assets/gold-medal.png"
+    />
+  </div>
+  <div class="spacer"></div>
+  <p class="inline list-item__percent" title="Porcentaje sobre el total">
+    2.25%
+  </p>
+  <p class="inline list-item__count" title="Total de instalaciones">
+    455000
+    <span class="material-icons"> file_download </span>
+  </p>
+</mat-list-item>

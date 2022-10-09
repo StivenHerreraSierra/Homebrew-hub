@@ -6,6 +6,9 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
+//Charts
+import { NgChartsModule } from 'ng2-charts';
+
 //Componentes
 import { ListaComponent } from './components/lista/lista.component';
 import { ListaItemComponent } from './components/lista-item/lista-item.component';
@@ -24,6 +27,10 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FiltroCheckboxComponent } from './components/filtro-checkbox/filtro-checkbox.component';
 import { HomeComponent } from './views/home/home.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { AnaliticasComponent } from './views/analiticas/analiticas.component';
+import { BarChartComponent } from './components/bar-chart/bar-chart.component';
+import { ListaTopComponent } from './components/lista-top/lista-top.component';
+import { ItemTopComponent } from './components/item-top/item-top.component';
 
 @NgModule({
   declarations: [
@@ -34,12 +41,19 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
     FiltroCheckboxComponent,
     HomeComponent,
     ToolbarComponent,
+    AnaliticasComponent,
+    BarChartComponent,
+    ListaTopComponent,
+    ItemTopComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+
+    //Charts
+    NgChartsModule,
 
     //Material
     MatGridListModule,

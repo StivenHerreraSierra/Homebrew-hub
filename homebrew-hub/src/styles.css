@@ -35,3 +35,14 @@ h6 {
 .spacer {
   flex: 1;
 }
+
+.inline {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.bold {
+  font-weight: bold;
+}

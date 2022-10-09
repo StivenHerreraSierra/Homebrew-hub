@@ -1,13 +1,21 @@
-footer {
+.footer {
   margin-top: 8px;
   display: flex;
+  justify-content: center;
   align-items: center;
-  line-height: 20px;
+  height: 60px;
+  background-color: #3a8bdb;
+  color: white;
 }
 
-footer a {
+.footer a {
   display: flex;
   align-items: center;
+  color: white;
+}
+
+.footer a:hover {
+  text-decoration: underline;
 }
 
 @media screen and (max-width: 575px) {

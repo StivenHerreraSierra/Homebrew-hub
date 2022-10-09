@@ -1,0 +1,9 @@
+<app-toolbar></app-toolbar>
+<div class="container">
+  <h2 class="container__title">
+    <span class="material-icons"> trending_up </span>
+    Analíticas
+  </h2>
+  <app-bar-chart title="Total de Instalaciones" [data]="data"></app-bar-chart>
+  <app-lista-top *ngFor="let v of [1, 2, 3]"></app-lista-top>
+</div>
