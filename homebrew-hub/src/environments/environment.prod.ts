@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  api: 'https://homebrewhub-api.netlify.app',
+  api: 'https://homebrewhub-api.onrender.com/',
 };

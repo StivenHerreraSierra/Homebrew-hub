@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  api: 'https://homebrewhub-api.netlify.app',
+  api: 'https://homebrewhub-api.onrender.com/',
 };
 
 /*
