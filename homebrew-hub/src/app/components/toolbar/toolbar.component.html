@@ -1,23 +1,25 @@
 <div class="toolbar" role="banner">
-  <a routerLink="" class="inline">
+  <a routerLink="" class="inline toolbar__logo">
     <img width="45" alt="Homebrew Logo" src="../assets/homebrew.png" />
     <h1 class="toolbar__titulo">
-      Homebrew <span style="color: #ccc">hub</span>
+      Homebrew <span class="toolbar__titulo--gray">hub</span>
     </h1>
   </a>
 
-  <ng-content></ng-content>
+  <ng-content select="[medio]"></ng-content>
 
   <div class="spacer"></div>
+
+  <ng-content select="[enlaces]"></ng-content>
 
   <a
     aria-label="Repositorio en GitHub"
     target="_blank"
     href="https://github.com/StivenHerreraSierra/Homebrew-hub"
     title="Ir a GitHub"
-    class="inline"
+    class="inline enlace"
   >
-    <img src="../assets/github_moderno.png" width="50" />
-    <span class="a__text">GitHub</span>
+    <span>GitHub</span>
+    <img src="../assets/github_moderno.png" width="35" />
   </a>
 </div>

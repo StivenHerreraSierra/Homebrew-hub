@@ -19,16 +19,16 @@
   color: white;
 }
 
-.inline {
-  margin-right: 10px;
+.toolbar__titulo--gray {
+  color: #ccc
 }
-.inline:hover {
+
+.toolbar__logo:hover {
   text-shadow: 0 0 rgba(51, 51, 51, 1);
   scale: 1.1;
 }
 
-.a__text {
-  color: white;
-  font-size: 20px;
-  font-weight: normal;
+.inline {
+  margin-right: 10px;
 }
+

@@ -38,7 +38,6 @@ export class HomeComponent implements OnInit {
   constructor(private homebrewService: HomebrewService) { }
 
   ngOnInit(): void {
-    console.log("Ejecutando Init:", Date.now().toLocaleString());
     this.paquetesObservable = this.homebrewService.watch();
 
     this.paquetesObservable.subscribe({

@@ -18,7 +18,11 @@ export class HomebrewService {
   }
 
   getAll() {
-    return this.http
+    if(sessionStorage.getItem('all')) {
+      this.listaPaquetes = JSON.parse(sessionStorage.getItem('all')!);
+      this.paquetes.next(this.listaPaquetes);
+    } else {
+      this.http
       .get<PaqueteRespuesta[]>(`${environment.api}/all`)
       .subscribe({
         next: (res: PaqueteRespuesta[]) => {
@@ -46,10 +50,12 @@ export class HomebrewService {
             this.listaPaquetes.push(nuevoPaquete);
           });
 
+          sessionStorage.setItem('all', JSON.stringify(this.listaPaquetes))
           this.paquetes.next(this.listaPaquetes);
         },
         error: (err) => err,
       });
+    }    
   }
 
   filtrarPorBusqueda(busqueda: string): Paquete[] {

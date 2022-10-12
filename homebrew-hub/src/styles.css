@@ -46,3 +46,18 @@ h6 {
 .bold {
   font-weight: bold;
 }
+
+.enlace {
+  color: white;
+  font-size: 16px;
+  font-weight: normal;
+  margin: auto 10px;
+  border-left: 1px solid rgba(204, 204, 204, 0.534);
+  padding-left: 10px;
+  padding-right: 10px;
+  height: 70%;
+}
+
+.enlace:hover {
+  text-decoration: underline;
+}
