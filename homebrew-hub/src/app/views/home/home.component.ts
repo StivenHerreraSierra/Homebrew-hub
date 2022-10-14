@@ -80,9 +80,10 @@ export class HomeComponent implements OnInit {
     }
   }
 
-
   buscarPaquete(busqueda: string) {
     if (this.busqueda !== busqueda) {
+      this.isOrdenarListado = false;
+      this.categoriasSeleccionadas = [];
       this.licenciasSeleccionadas = [];
       this.sistemasOperativosSeleccionados = [];
       this.busqueda = busqueda;
