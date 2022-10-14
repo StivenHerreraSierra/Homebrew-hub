@@ -7,7 +7,7 @@
   <div class="item__info">
     <h3 class="info__titulo">{{ paquete.name }}</h3>
     <p class="info__descripcion">{{ paquete.desc }}</p>
-    <mat-chip-list  aria-label="Fish selection" >
+    <mat-chip-list aria-label="Fish selection">
       <mat-chip class="info__chip">
         {{ "v" + paquete.stableVersion }}
       </mat-chip>
@@ -15,15 +15,28 @@
         <mat-icon class="info__chip--icon" fontIcon="gavel"></mat-icon> &nbsp;
         {{ paquete.license }}
       </mat-chip>
-      <mat-chip class="info__chip">
-        MacOS
-      </mat-chip>
+      <mat-chip class="info__chip"> MacOS </mat-chip>
       <mat-chip class="info__chip" *ngIf="paquete.linuxCompatible">
         Linux
       </mat-chip>
     </mat-chip-list>
   </div>
+  <div class="item__instalaciones">
+    <p class="descargas__etiqueta">
+      {{ paquete["analytics-365"]
+      }}<mat-icon
+        fontIcon="file_download"
+        class="obsoleto__etiqueta--icon"
+      ></mat-icon>
+    </p>
+  </div>
   <div class="item__obsoleto" *ngIf="paquete.deprecated">
-    <p class="descargas__etiqueta">Obsoleto <mat-icon fontIcon="report_problem" class="obsoleto__etiqueta--icon"></mat-icon></p>
+    <p class="descargas__etiqueta">
+      Obsoleto
+      <mat-icon
+        fontIcon="report_problem"
+        class="obsoleto__etiqueta--icon"
+      ></mat-icon>
+    </p>
   </div>
 </div>

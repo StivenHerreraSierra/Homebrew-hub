@@ -20,6 +20,13 @@
   height: max-content;
 }
 
+.section__header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: center;
+}
+
 .content {
   display: flex;
   min-width: 100%;

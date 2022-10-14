@@ -27,8 +27,12 @@ export interface Paquete {
   dependencies: string[];
   deprecated: boolean;
   deprecation_date: string;
-  analytics: Analytics;
-  'analytics-linux': Analytics;
+  'analytics-30': string;
+  'analytics-90': string;
+  'analytics-365': string;
+  'analytics-linux-30': string;
+  'analytics-linux-90': string;
+  'analytics-linux-365': string;
 }
 
 export interface PaqueteRespuesta {
@@ -60,32 +64,12 @@ export interface PaqueteRespuesta {
   dependencies: string[];
   deprecated: boolean;
   deprecation_date: string;
-  analytics: {
-    install: {
-      '30d': {
-        wget: number;
-      };
-      '90d': {
-        wget: number;
-      };
-      '365d': {
-        wget: number;
-      };
-    };
-  };
-  'analytics-linux': {
-    install: {
-      '30d': {
-        wget: number;
-      };
-      '90d': {
-        wget: number;
-      };
-      '365d': {
-        wget: number;
-      };
-    };
-  };
+  'analytics-30': string;
+  'analytics-90': string;
+  'analytics-365': string;
+  'analytics-linux-30': string;
+  'analytics-linux-90': string;
+  'analytics-linux-365': string;
 }
 
 export interface Analitica {

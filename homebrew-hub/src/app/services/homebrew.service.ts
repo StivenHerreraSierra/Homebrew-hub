@@ -18,13 +18,11 @@ export class HomebrewService {
   }
 
   getAll() {
-    if(sessionStorage.getItem('all')) {
+    if (sessionStorage.getItem('all')) {
       this.listaPaquetes = JSON.parse(sessionStorage.getItem('all')!);
       this.paquetes.next(this.listaPaquetes);
     } else {
-      this.http
-      .get<PaqueteRespuesta[]>(`${environment.api}/all`)
-      .subscribe({
+      this.http.get<PaqueteRespuesta[]>(`${environment.api}/all`).subscribe({
         next: (res: PaqueteRespuesta[]) => {
           this.listaPaquetes = [];
 
@@ -45,17 +43,18 @@ export class HomebrewService {
               dependencies: paquete.dependencies,
               deprecated: paquete.deprecated,
               deprecation_date: paquete.deprecation_date,
+              'analytics-365': paquete['analytics-365'],
             } as Paquete;
 
             this.listaPaquetes.push(nuevoPaquete);
           });
 
-          sessionStorage.setItem('all', JSON.stringify(this.listaPaquetes))
+          sessionStorage.setItem('all', JSON.stringify(this.listaPaquetes));
           this.paquetes.next(this.listaPaquetes);
         },
         error: (err) => err,
       });
-    }    
+    }
   }
 
   filtrarPorBusqueda(busqueda: string): Paquete[] {
@@ -159,9 +158,7 @@ export class HomebrewService {
 
   getMacOsAnaliticas(dias: number) {
     return this.http
-      .get<Analitica>(
-        `${environment.api}/analytics/${dias}d`,
-      )
+      .get<Analitica>(`${environment.api}/analytics/${dias}d`)
       .pipe<Analitica>(
         map((data: Analitica) => {
           return {
@@ -177,19 +174,27 @@ export class HomebrewService {
 
   getLinuxAnaliticas(dias: number) {
     return this.http
-    .get<Analitica>(
-      `${environment.api}/analytics-linux/${dias}d`
-    )
-    .pipe<Analitica>(
-      map((data: Analitica) => {
-        return {
-          total_items: data.total_items,
-          start_date: data.start_date,
-          end_date: data.end_date,
-          total_count: data.total_count,
-          items: data.items.slice(0, 10),
-        } as Analitica;
-      })
+      .get<Analitica>(`${environment.api}/analytics-linux/${dias}d`)
+      .pipe<Analitica>(
+        map((data: Analitica) => {
+          return {
+            total_items: data.total_items,
+            start_date: data.start_date,
+            end_date: data.end_date,
+            total_count: data.total_count,
+            items: data.items.slice(0, 10),
+          } as Analitica;
+        })
+      );
+  }
+
+  ordenarListado(paquetes: Paquete[]) {
+    const paquetesOrdenado = [...paquetes].sort(
+      (p1: Paquete, p2: Paquete) =>
+        parseInt(p2['analytics-365'].replace(/,/g, '')) -
+        parseInt(p1['analytics-365'].replace(/,/g, ''))
     );
+
+    return paquetesOrdenado;
   }
 }

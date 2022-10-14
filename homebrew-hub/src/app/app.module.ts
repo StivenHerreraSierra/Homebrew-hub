@@ -33,6 +33,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { MatDividerModule } from '@angular/material/divider';
     MatTableModule,
     MatTabsModule,
     BrowserAnimationsModule,
-    MatDividerModule
+    MatDividerModule,
+    MatSlideToggleModule
   ],
   providers: [],
   bootstrap: [AppComponent],

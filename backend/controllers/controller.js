@@ -20,37 +20,39 @@ const httpClient = axios.create({
  */
 const obtenerPaquetes = async (req, res) => {
   const resAll = await httpClient.get(`${END_POINT}/formula.json`);
-  
+
   let paquetes = [...resAll.data];
   const resAnaliticas = await httpClient.get(
     `${END_POINT}/analytics/install/365d.json`
   );
 
-  const analiticas = [...resAnaliticas.data.items]
+  const analiticas = [...resAnaliticas.data.items];
 
-  const analiticasMap = new Map(analiticas.map(a => [a.formula, a.count]));
+  const analiticasMap = new Map(analiticas.map((a) => [a.formula, a.count]));
 
-  paquetes = paquetes.map(p => {
+  paquetes = paquetes.map((p) => {
     p = {
-      "name": p.name,
+      name: p.name,
       "full-name": p.full_name,
-      "tap": p.tap,
-      "oldname": p.oldname,
-      "desc": p.desc,
-      "license": p.license,
-      "versions": p.versions,
-      "urls": p.urls,
-      "bottle": p.bottle,
-      "build_dependencies": p.build_dependencies,
-      "dependencies": p.dependencies,
-      "deprecated": p.deprecated,
-      "deprecation_date": p.deprecation_date,
+      tap: p.tap,
+      oldname: p.oldname,
+      desc: p.desc,
+      license: p.license,
+      versions: p.versions,
+      urls: p.urls,
+      bottle: p.bottle,
+      build_dependencies: p.build_dependencies,
+      dependencies: p.dependencies,
+      deprecated: p.deprecated,
+      deprecation_date: p.deprecation_date,
     };
 
-    p.analytics = analiticasMap.get(p.full_name) ?? 0;
+    p["analytics-365"] =
+      analiticasMap.get(p["full-name"]) ??
+      "0";
     return p;
   });
-  
+
   res.status(200).json(paquetes);
 };
 

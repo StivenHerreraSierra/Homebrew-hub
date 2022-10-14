@@ -35,6 +35,8 @@ export class HomeComponent implements OnInit {
 
   busqueda: string = "";
 
+  isOrdenarListado: boolean = false;
+
   constructor(private homebrewService: HomebrewService) { }
 
   ngOnInit(): void {
@@ -164,6 +166,16 @@ export class HomeComponent implements OnInit {
     this.paquetes = listaFiltrada;
   }
 
+  ordenarListado() {
+    if(this.isOrdenarListado) {
+      this.paquetes = this.homebrewService.ordenarListado(this.paquetes);
+    } else {
+      this.homebrewService.getAll();
+      this.reiniciarFiltrosLista();
+    }
+    this.actualizarPagina(0);
+  }
+
   reiniciarFiltrosLista() {
     if (this.busqueda) {
       this.buscarPaquete(this.busqueda);
@@ -179,6 +191,10 @@ export class HomeComponent implements OnInit {
 
     if (this.categoriasSeleccionadas.length > 0) {
       this.filtrarPorCategoria();
+    }
+
+    if (this.isOrdenarListado)  {
+      this.ordenarListado();
     }
   }
 }
