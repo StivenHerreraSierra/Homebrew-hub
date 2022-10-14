@@ -58,8 +58,18 @@
     <app-detalles-item>
       <ng-container titulo>Build Dependencies</ng-container>
       <ng-container contenido>
-        <p *ngIf="paquete.buildDependencies.length === 0">No especifica</p>
-        <ul *ngIf="paquete.buildDependencies.length > 0">
+        <p
+          *ngIf="
+            !paquete.buildDependencies || paquete.buildDependencies.length === 0
+          "
+        >
+          No especifica
+        </p>
+        <ul
+          *ngIf="
+            paquete.buildDependencies && paquete.buildDependencies.length > 0
+          "
+        >
           <li *ngFor="let dep of paquete.buildDependencies">{{ dep }}</li>
         </ul>
       </ng-container>
@@ -68,8 +78,10 @@
     <app-detalles-item>
       <ng-container titulo>Dependencies</ng-container>
       <ng-container contenido>
-        <p *ngIf="paquete.dependencies.length === 0">No especifica</p>
-        <ul *ngIf="paquete.dependencies.length > 0">
+        <p *ngIf="!paquete.dependencies || paquete.dependencies.length === 0">
+          No especifica
+        </p>
+        <ul *ngIf="paquete.dependencies && paquete.dependencies.length > 0">
           <li *ngFor="let dep of paquete.dependencies">{{ dep }}</li>
         </ul>
       </ng-container>
@@ -85,16 +97,16 @@
       </ng-container>
     </app-detalles-item>
 
-    <app-detalles-item *ngIf="paquete">
+    <app-detalles-item>
       <ng-container titulo>Analíticas de Instalación en MacOS</ng-container>
       <ng-container contenido>
         <div class="chart">
-          <canvas #chartMac>{{ chartMac }}</canvas>
+          <canvas #chartMac id="chartMac">{{ chartMac }}</canvas>
         </div>
       </ng-container>
     </app-detalles-item>
 
-    <app-detalles-item *ngIf="paquete">
+    <app-detalles-item>
       <ng-container titulo>Analíticas de Instalación en Linux</ng-container>
       <ng-container contenido>
         <div class="chart">

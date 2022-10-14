@@ -47,9 +47,7 @@ const obtenerPaquetes = async (req, res) => {
       deprecation_date: p.deprecation_date,
     };
 
-    p["analytics-365"] =
-      analiticasMap.get(p["full-name"]) ??
-      "0";
+    p["analytics-365"] = analiticasMap.get(p["full-name"]) ?? "0";
     return p;
   });
 
@@ -83,7 +81,49 @@ const obtenerAnaliticasLinux = async (req, res) => {
   res.status(200).json(analiticas.data);
 };
 
+const obtenerPaquete = async (req, res) => {
+  const { pac } = req.params;
+  const respuesta = await httpClient.get(`${END_POINT}/formula/${pac}.json`);
+
+  let paquete = {
+    name: respuesta.data.name,
+    "full-name": respuesta.data.full_name,
+    tap: respuesta.data.tap,
+    oldname: respuesta.data.oldname,
+    homepage: respuesta.data.homepage,
+    desc: respuesta.data.desc,
+    license: respuesta.data.license,
+    versions: respuesta.data.versions,
+    urls: respuesta.data.urls,
+    bottle: respuesta.data.bottle,
+    build_dependencies: respuesta.data.build_dependencies,
+    dependencies: respuesta.data.dependencies,
+    deprecated: respuesta.data.deprecated,
+    deprecation_date: respuesta.data.deprecation_date,
+    //Obtiene los valores en el objeto, en forma de array, y captura el primer elemento.
+    "analytics-30":
+      Object.values(respuesta.data.analytics.install["30d"])[0] ?? 0,
+    "analytics-90":
+      Object.values(respuesta.data.analytics.install["90d"])[0] ?? 0,
+    "analytics-365":
+      Object.values(respuesta.data.analytics.install["365d"])[0] ?? 0,
+    "analytics-linux-30":
+      Object.values(respuesta.data["analytics-linux"].install["30d"])[0] ?? 0,
+    "analytics-linux-90":
+      Object.values(respuesta.data["analytics-linux"].install["90d"])[0] ?? 0,
+    "analytics-linux-365":
+      Object.values(respuesta.data["analytics-linux"].install["365d"])[0] ?? 0,
+  };
+
+  res.status(200).json(paquete);
+};
+
 /**
  * Exportando las funciones.
  */
-export { obtenerPaquetes, obtenerAnaliticasMac, obtenerAnaliticasLinux };
+export {
+  obtenerPaquetes,
+  obtenerAnaliticasMac,
+  obtenerAnaliticasLinux,
+  obtenerPaquete,
+};

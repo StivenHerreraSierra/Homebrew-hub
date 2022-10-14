@@ -3,6 +3,7 @@ import {
   obtenerPaquetes,
   obtenerAnaliticasMac,
   obtenerAnaliticasLinux,
+  obtenerPaquete
 } from "../controllers/controller.js";
 
 const router = Router();
@@ -13,6 +14,7 @@ const router = Router();
 router.get("/all", obtenerPaquetes);
 router.get("/analytics/:dias", obtenerAnaliticasMac);
 router.get("/analytics-linux/:dias", obtenerAnaliticasLinux);
+router.get("/get/:pac", obtenerPaquete);
 
 /**
  * Exportando el router.

@@ -207,6 +207,7 @@ export class HomebrewService {
             name: paquete.name,
             fullName: paquete['full-name'],
             tap: paquete.tap,
+            homepage: paquete.homepage,
             oldname: paquete.oldname,
             desc: paquete.desc,
             license: paquete.license,
