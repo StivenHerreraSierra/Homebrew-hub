@@ -11,6 +11,7 @@
     padding: 20px;
     border-radius: 3px;
     box-shadow: 0 0 2px 1px rgb(219, 219, 219);
+    cursor: pointer;
 }
 
 .item__imagen {
