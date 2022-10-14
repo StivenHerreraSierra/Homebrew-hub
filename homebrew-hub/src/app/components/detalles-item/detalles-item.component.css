@@ -1,0 +1,26 @@
+.container {
+  margin-bottom: 25px;
+  box-sizing: border-box;
+}
+
+.box__titulo {
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0;
+  color: #27343b;
+}
+
+.box__divider {
+  margin: 10px 0;
+}
+
+.box__contenido {
+  padding-left: 10px;
+  color: rgb(45, 47, 48);
+  font-size: 15px;
+}
+
+.chart {
+  width: 600px;
+  margin: 0 auto;
+}

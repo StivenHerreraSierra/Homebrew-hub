@@ -18,6 +18,7 @@ import { HomeComponent } from './views/home/home.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { AnaliticasComponent } from './views/analiticas/analiticas.component';
 import { TablaTopComponent } from './components/tabla-top/tabla-top.component';
+import { DetailsComponent } from './views/details/details.component';
 
 //Material
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -34,6 +35,10 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { ClipboardModule } from '@angular/cdk/clipboard';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { ClipboardComponent } from './components/clipboard/clipboard.component';
+import { DetallesItemComponent } from './components/detalles-item/detalles-item.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +51,9 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     ToolbarComponent,
     AnaliticasComponent,
     TablaTopComponent,
+    DetailsComponent,
+    ClipboardComponent,
+    DetallesItemComponent,
   ],
   imports: [
     BrowserModule,
@@ -70,7 +78,9 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatTabsModule,
     BrowserAnimationsModule,
     MatDividerModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    ClipboardModule,
+    MatTooltipModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

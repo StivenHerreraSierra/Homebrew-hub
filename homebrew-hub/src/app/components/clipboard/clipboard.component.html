@@ -1,0 +1,14 @@
+<div
+  class="clip__container"
+  [cdkCopyToClipboard]="texto"
+  (click)="tooltip.show()"
+>
+  <span
+    #tooltip="matTooltip"
+    matTooltip="Texto copiado"
+    matTooltipPosition="above"
+    class="tooltip"
+  ></span>
+  <input class="container__input" matInput [value]="texto" readonly />
+  <mat-icon matSuffix>content_copy</mat-icon>
+</div>

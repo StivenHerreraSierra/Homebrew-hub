@@ -2,20 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Chart } from 'chart.js';
 import { Analitica } from 'src/app/models/package.model';
 import { HomebrewService } from 'src/app/services/homebrew.service';
-
-const BACKGROUND_COLOR = [
-  'rgba(255, 99, 132, 0.2)',
-  'rgba(75, 192, 192, 0.2)',
-  'rgba(153, 102, 255, 0.2)',
-];
-
-const BORDER_COLOR = [
-  'rgb(255, 99, 132)',
-  'rgb(75, 192, 192)',
-  'rgb(153, 102, 255)',
-]
-
-const BORDER_WIDTH = 1;
+import { BACKGROUND_COLOR, BORDER_COLOR, BORDER_WIDTH } from '../../../assets/constantes-chart';
 
 @Component({
   selector: 'app-analiticas',
@@ -23,8 +10,8 @@ const BORDER_WIDTH = 1;
   styleUrls: ['./analiticas.component.css'],
 })
 export class AnaliticasComponent implements OnInit {
-  @ViewChild('chartMac') chartMacElement!: ElementRef
-  @ViewChild('chartLinux') chartLinuxElement!: ElementRef
+  @ViewChild('chartMac') chartMacElement!: ElementRef;
+  @ViewChild('chartLinux') chartLinuxElement!: ElementRef;
 
   data30dMac: Analitica = {} as Analitica;
   data90dMac: Analitica = {} as Analitica;

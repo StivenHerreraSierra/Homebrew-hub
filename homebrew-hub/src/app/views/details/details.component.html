@@ -1,0 +1,106 @@
+<app-toolbar>
+  <a class="inline enlace" enlaces routerLink="analiticas">Analíticas</a>
+</app-toolbar>
+
+<div class="detalles__container">
+  <div class="container__header">
+    <div class="header__titulo">
+      <img src="../../../assets/package.png" alt="paquete" />
+      <div class="columna">
+        <h2>{{ paquete.name }}</h2>
+        <p class="light-color" *ngIf="paquete.tap">{{ paquete.tap }}</p>
+      </div>
+    </div>
+
+    <app-clipboard
+      *ngIf="paquete.fullName"
+      [texto]="'brew install ' + paquete.fullName"
+    ></app-clipboard>
+  </div>
+  <div class="container__info">
+    <app-detalles-item>
+      <ng-container titulo>Información General</ng-container>
+      <ng-container contenido>
+        <ul>
+          <li *ngIf="paquete.oldname">
+            Otro nombre: <span class="light-color">{{ paquete.oldname }}</span>
+          </li>
+          <li *ngIf="paquete.homepage">
+            Homepage: <a href="url">{{ paquete.homepage }}</a>
+          </li>
+          <li *ngIf="paquete.stableUrl">
+            Link de descarga:
+            <a href="URL">{{ paquete.stableUrl }}</a>
+          </li>
+          <li>
+            Disponible en: MacOS<span *ngIf="paquete.linuxCompatible">
+              y Linux</span
+            >
+          </li>
+        </ul>
+      </ng-container>
+    </app-detalles-item>
+
+    <app-detalles-item *ngIf="paquete.stableVersion">
+      <ng-container titulo>Versiones</ng-container>
+      <ng-container contenido>{{ paquete.stableVersion }}</ng-container>
+    </app-detalles-item>
+
+    <app-detalles-item *ngIf="paquete.desc">
+      <ng-container titulo>Descripción</ng-container>
+      <ng-container contenido>
+        <p>
+          {{ paquete.desc }}
+        </p>
+      </ng-container>
+    </app-detalles-item>
+
+    <app-detalles-item>
+      <ng-container titulo>Build Dependencies</ng-container>
+      <ng-container contenido>
+        <p *ngIf="paquete.buildDependencies.length === 0">No especifica</p>
+        <ul *ngIf="paquete.buildDependencies.length > 0">
+          <li *ngFor="let dep of paquete.buildDependencies">{{ dep }}</li>
+        </ul>
+      </ng-container>
+    </app-detalles-item>
+
+    <app-detalles-item>
+      <ng-container titulo>Dependencies</ng-container>
+      <ng-container contenido>
+        <p *ngIf="paquete.dependencies.length === 0">No especifica</p>
+        <ul *ngIf="paquete.dependencies.length > 0">
+          <li *ngFor="let dep of paquete.dependencies">{{ dep }}</li>
+        </ul>
+      </ng-container>
+    </app-detalles-item>
+
+    <app-detalles-item>
+      <ng-container titulo>Licencias</ng-container>
+      <ng-container contenido>
+        <p *ngIf="!paquete.license">No especifica</p>
+        <ul *ngIf="paquete.license">
+          <li *ngFor="let lic of paquete.license.split(' ')">{{ lic }}</li>
+        </ul>
+      </ng-container>
+    </app-detalles-item>
+
+    <app-detalles-item *ngIf="paquete">
+      <ng-container titulo>Analíticas de Instalación en MacOS</ng-container>
+      <ng-container contenido>
+        <div class="chart">
+          <canvas #chartMac>{{ chartMac }}</canvas>
+        </div>
+      </ng-container>
+    </app-detalles-item>
+
+    <app-detalles-item *ngIf="paquete">
+      <ng-container titulo>Analíticas de Instalación en Linux</ng-container>
+      <ng-container contenido>
+        <div class="chart">
+          <canvas #chartLinux>{{ chartLinux }}</canvas>
+        </div>
+      </ng-container>
+    </app-detalles-item>
+  </div>
+</div>

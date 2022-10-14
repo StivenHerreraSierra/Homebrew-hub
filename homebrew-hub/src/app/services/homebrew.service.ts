@@ -197,4 +197,36 @@ export class HomebrewService {
 
     return paquetesOrdenado;
   }
+
+  getPaquete(nombrePaquete: string) {
+    return this.http
+      .get<PaqueteRespuesta>(`${environment.api}/get/${nombrePaquete}`)
+      .pipe(
+        map((paquete: PaqueteRespuesta) => {
+          return {
+            name: paquete.name,
+            fullName: paquete['full-name'],
+            tap: paquete.tap,
+            oldname: paquete.oldname,
+            desc: paquete.desc,
+            license: paquete.license,
+            stableVersion: paquete.versions.stable,
+            stableUrl: paquete.urls.stable.url,
+            linuxCompatible: paquete.bottle?.stable?.files.x86_64_linux
+              ? true
+              : false,
+            buildDependencies: paquete.build_dependencies,
+            dependencies: paquete.dependencies,
+            deprecated: paquete.deprecated,
+            deprecation_date: paquete.deprecation_date,
+            'analytics-30': paquete['analytics-30'],
+            'analytics-90': paquete['analytics-90'],
+            'analytics-365': paquete['analytics-365'],
+            'analytics-linux-30': paquete['analytics-linux-30'],
+            'analytics-linux-90': paquete['analytics-linux-90'],
+            'analytics-linux-365': paquete['analytics-linux-365'],
+          } as Paquete;
+        })
+      );
+  }
 }
