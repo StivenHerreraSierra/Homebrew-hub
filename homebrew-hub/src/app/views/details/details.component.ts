@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Chart } from 'chart.js';
 import { Paquete } from 'src/app/models/package.model';
 import { HomebrewService } from 'src/app/services/homebrew.service';
@@ -8,6 +8,13 @@ import {
   BORDER_COLOR,
   BORDER_WIDTH,
 } from '../../../assets/constantes-chart';
+import * as Highcharts from 'highcharts';
+import network from 'highcharts/modules/networkgraph';
+/**
+ * Es el factory del módulo.
+ * Agrega el módulo al Highchart importado.
+ */
+network(Highcharts);
 
 @Component({
   selector: 'app-details',
@@ -31,7 +38,14 @@ export class DetailsComponent implements OnInit {
     string
   >;
 
+  grafoDependencias = Highcharts;
+  grafoDependenciasConf: any = {};
+
+  grafoBuildDependencias = Highcharts;
+  grafoBuildDependenciasConf: any = {};
+
   constructor(
+    private routerNavigate: Router,
     private route: ActivatedRoute,
     private homebrewService: HomebrewService
   ) {}
@@ -46,6 +60,14 @@ export class DetailsComponent implements OnInit {
           this.paquete = data;
           this.cargarChartMac();
           this.cargarChartLinux();
+          this.grafoBuildDependenciasConf = this.cargarGrafo(
+            'Dependencias de construcción',
+            this.paquete.buildDependencies
+          );
+          this.grafoDependenciasConf = this.cargarGrafo(
+            'Dependencias',
+            this.paquete.dependencies
+          );
         });
     }
   }
@@ -95,5 +117,71 @@ export class DetailsComponent implements OnInit {
         ],
       },
     });
+  }
+
+  cargarGrafo(titulo: string, lista: string[]) {
+    return {
+      chart: {
+        type: 'networkgraph',
+        height: '70%',
+      },
+      title: {
+        text: titulo,
+      },
+      plotOptions: {
+        networkgraph: {
+          keys: ['from', 'to'],
+          layoutAlgorithm: {
+            linkLength: 100,
+          },
+        },
+        series: {
+          cursor: 'pointer',
+          events: {
+            click: (evento: any) => this.irADetalles(evento.point.id),
+          },
+        },
+      },
+      series: [
+        {
+          marker: {
+            radius: 50,
+          },
+          draggable: true,
+          dataLabels: {
+            enabled: true,
+            linkFormat: '{point.fromNode.name} \u2192 {point.toNode.name}',
+          },
+          data: lista.map((d) => [d, this.paquete.fullName]),
+          nodes: [
+            {
+              id: this.paquete.name,
+              color: '#0000CC',
+            },
+          ],
+        },
+      ],
+    };
+  }
+
+  /**
+   * Navega hacia los detalles de una dependencia.
+   *
+   * Como los detalles se presentan en el mismo componente, la redirección se
+   * ignora si no se navega primero a un componente diferente. Para solucionar
+   * esto, se le debe dar a Router.routeReuseStrategy.shouldReuseRoute una
+   * función que retorne false, además se debe definir en
+   * Router.onSameUrlNavigation que el comportamiento sea recargar en la propiedad.
+   *
+   * Info obtenida de: https://angular.io/api/router/Router#onSameUrlNavigation
+   * @param paquete Nombre de la dependencia.
+   */
+  irADetalles(paquete: string) {
+    if (paquete != this.paquete.fullName) {
+      this.routerNavigate.routeReuseStrategy.shouldReuseRoute = () => false;
+
+      this.routerNavigate.onSameUrlNavigation = 'reload';
+      this.routerNavigate.navigate(['detalles', paquete]);
+    }
   }
 }

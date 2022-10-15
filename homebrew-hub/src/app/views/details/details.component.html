@@ -1,5 +1,5 @@
 <app-toolbar>
-  <a class="inline enlace" enlaces routerLink="analiticas">Analíticas</a>
+  <a class="inline enlace" enlaces routerLink="/analiticas">Analíticas</a>
 </app-toolbar>
 
 <div class="detalles__container">
@@ -26,11 +26,16 @@
             Otro nombre: <span class="light-color">{{ paquete.oldname }}</span>
           </li>
           <li *ngIf="paquete.homepage">
-            Homepage: <a href="url">{{ paquete.homepage }}</a>
+            Homepage:
+            <a class="info__url" [href]="paquete.homepage">{{
+              paquete.homepage
+            }}</a>
           </li>
           <li *ngIf="paquete.stableUrl">
             Link de descarga:
-            <a href="URL">{{ paquete.stableUrl }}</a>
+            <a class="info__url" [href]="paquete.stableUrl">{{
+              paquete.stableUrl
+            }}</a>
           </li>
           <li>
             Disponible en: MacOS<span *ngIf="paquete.linuxCompatible">
@@ -58,6 +63,14 @@
     <app-detalles-item>
       <ng-container titulo>Build Dependencies</ng-container>
       <ng-container contenido>
+        <highcharts-chart
+          class="chart grafo"
+          [Highcharts]="grafoBuildDependencias"
+          [options]="grafoBuildDependenciasConf"
+          *ngIf="
+            paquete.buildDependencies && paquete.buildDependencies.length > 0
+          "
+        ></highcharts-chart>
         <p
           *ngIf="
             !paquete.buildDependencies || paquete.buildDependencies.length === 0
@@ -65,13 +78,6 @@
         >
           No especifica
         </p>
-        <ul
-          *ngIf="
-            paquete.buildDependencies && paquete.buildDependencies.length > 0
-          "
-        >
-          <li *ngFor="let dep of paquete.buildDependencies">{{ dep }}</li>
-        </ul>
       </ng-container>
     </app-detalles-item>
 
@@ -81,9 +87,12 @@
         <p *ngIf="!paquete.dependencies || paquete.dependencies.length === 0">
           No especifica
         </p>
-        <ul *ngIf="paquete.dependencies && paquete.dependencies.length > 0">
-          <li *ngFor="let dep of paquete.dependencies">{{ dep }}</li>
-        </ul>
+        <highcharts-chart
+          *ngIf="paquete.dependencies && paquete.dependencies.length > 0"
+          class="chart grafo"
+          [Highcharts]="grafoDependencias"
+          [options]="grafoDependenciasConf"
+        ></highcharts-chart>
       </ng-container>
     </app-detalles-item>
 

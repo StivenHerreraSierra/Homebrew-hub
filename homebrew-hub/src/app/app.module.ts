@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 
 //Charts
 import { NgChartsModule } from 'ng2-charts';
+import { HighchartsChartModule } from 'highcharts-angular';
 
 //Componentes
 import { ListaComponent } from './components/lista/lista.component';
@@ -19,6 +20,7 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { AnaliticasComponent } from './views/analiticas/analiticas.component';
 import { TablaTopComponent } from './components/tabla-top/tabla-top.component';
 import { DetailsComponent } from './views/details/details.component';
+import { DetallesItemComponent } from './components/detalles-item/detalles-item.component';
 
 //Material
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -38,7 +40,6 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ClipboardComponent } from './components/clipboard/clipboard.component';
-import { DetallesItemComponent } from './components/detalles-item/detalles-item.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { DetallesItemComponent } from './components/detalles-item/detalles-item.
 
     //Charts
     NgChartsModule,
+    HighchartsChartModule,
 
     //Material
     MatGridListModule,
