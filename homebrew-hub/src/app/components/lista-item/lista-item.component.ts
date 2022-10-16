@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Paquete } from 'src/app/models/package.model';
 
@@ -7,12 +7,10 @@ import { Paquete } from 'src/app/models/package.model';
   templateUrl: './lista-item.component.html',
   styleUrls: ['./lista-item.component.css'],
 })
-export class ListaItemComponent implements OnInit {
+export class ListaItemComponent {
   @Input() paquete!: Paquete;
 
   constructor(private router: Router) {}
-
-  ngOnInit(): void {}
 
   irADetalles() {
     this.router.navigate(['detalles', this.paquete.name]);

@@ -1,16 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-clipboard',
   templateUrl: './clipboard.component.html',
   styleUrls: ['./clipboard.component.css']
 })
-export class ClipboardComponent implements OnInit {
-  @Input() texto: string = "";
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+export class ClipboardComponent {
+  @Input() texto = "";
 }

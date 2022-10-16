@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Analitica, Paquete, PaqueteRespuesta } from '../models/package.model';
 import { map, Subject } from 'rxjs';
@@ -73,7 +73,7 @@ export class HomebrewService {
     paquetes: Paquete[],
     listaActual: Paquete[]
   ) {
-    var listaFiltrada: Paquete[] = [];
+    let listaFiltrada: Paquete[] = [];
 
     //Obtiene los paquetes que cumplen.
     listaFiltrada = paquetes.filter(
@@ -88,7 +88,7 @@ export class HomebrewService {
 
   removerFiltroPorLicencia(licencia: string, listaActual: Paquete[]) {
     //Obtiene los paquetes que cumplen.
-    var listaFiltrada: Paquete[] = listaActual.filter(
+    const listaFiltrada: Paquete[] = listaActual.filter(
       (p) => p.license && !p.license.includes(licencia)
     );
 
@@ -100,7 +100,7 @@ export class HomebrewService {
     paquetes: Paquete[],
     listaActual: Paquete[]
   ) {
-    var listaFiltrada: Paquete[] = [];
+    let listaFiltrada: Paquete[] = [];
 
     //Obtiene los paquetes que cumplen.
     if (sistema.toLowerCase() === 'linux') {
@@ -116,7 +116,7 @@ export class HomebrewService {
   }
 
   removerFiltroPorSistemaOperativo(sistema: string, listaActual: Paquete[]) {
-    var listaFiltrada: Paquete[] = [];
+    let listaFiltrada: Paquete[] = [];
 
     //Obtiene los paquetes que cumplen.
     if (sistema.toLowerCase() === 'linux') {
@@ -149,7 +149,7 @@ export class HomebrewService {
     const categoriaAux = categoria.toLowerCase();
 
     //Obtiene los paquetes que cumplen.
-    var listaFiltrada: Paquete[] = listaActual.filter(
+    const listaFiltrada: Paquete[] = listaActual.filter(
       (p) => p.desc && !p.desc.toLocaleLowerCase().includes(categoriaAux)
     );
 

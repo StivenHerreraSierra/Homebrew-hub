@@ -1,21 +1,16 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { MatSelectionListChange } from '@angular/material/list';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-filtro-checkbox',
   templateUrl: './filtro-checkbox.component.html',
   styleUrls: ['./filtro-checkbox.component.css'],
 })
-export class FiltroCheckboxComponent implements OnInit {
-  @Input() titulo: string = '';
+export class FiltroCheckboxComponent {
+  @Input() titulo = '';
   @Input() items: string[] = [];
   @Input() itemsSeleccionados: string[] = [];
 
   @Output() eventoFiltrar = new EventEmitter();
-
-  constructor() {}
-
-  ngOnInit(): void {}
 
   filtrar() {
     this.eventoFiltrar.emit(this.itemsSeleccionados);

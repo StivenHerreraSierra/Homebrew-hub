@@ -33,9 +33,9 @@ export class HomeComponent implements OnInit {
     return [...this.categorias.keys()];
   }
 
-  busqueda: string = "";
+  busqueda = "";
 
-  isOrdenarListado: boolean = false;
+  isOrdenarListado = false;
 
   constructor(private homebrewService: HomebrewService) { }
 
@@ -108,7 +108,7 @@ export class HomeComponent implements OnInit {
   }
 
   filtrarPorLicencia() {
-    var listaFiltrada: Paquete[] = [];
+    let listaFiltrada: Paquete[] = [];
 
     this.licenciasSeleccionadas.forEach(l => 
       listaFiltrada = this.homebrewService.filtrarPorLicencia(
@@ -131,7 +131,7 @@ export class HomeComponent implements OnInit {
   }
 
   filtrarPorSistemaOperativo() {
-    var listaFiltrada: Paquete[] = [];
+    let listaFiltrada: Paquete[] = [];
 
     this.sistemasOperativosSeleccionados.forEach(so =>
       listaFiltrada = this.homebrewService.filtrarPorSistemaOperativo(
@@ -154,7 +154,7 @@ export class HomeComponent implements OnInit {
   }
 
   filtrarPorCategoria() {
-    var listaFiltrada: Paquete[] = [];
+    let listaFiltrada: Paquete[] = [];
 
     this.categoriasSeleccionadas.forEach(c => 
       listaFiltrada = this.homebrewService.filtrarPorCategoria(

@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Chart } from 'chart.js';
+import { Chart, ChartItem } from 'chart.js';
 import { Analitica } from 'src/app/models/package.model';
 import { HomebrewService } from 'src/app/services/homebrew.service';
 import { BACKGROUND_COLOR, BORDER_COLOR, BORDER_WIDTH } from '../../../assets/constantes-chart';
@@ -21,8 +21,8 @@ export class AnaliticasComponent implements OnInit {
   data365dLinux: Analitica = {} as Analitica;
   macTotales: number[] = [];
   linuxTotales: number[] = [];
-  chartMac: any = [];
-  chartLinux: any = [];
+  chartMac: Chart<"bar", number[], string> = {} as Chart<"bar", number[], string>;
+  chartLinux: Chart<"bar", number[], string> = {} as Chart<"bar", number[], string>;
 
   constructor(private homebrewService: HomebrewService) {}
 
@@ -100,16 +100,16 @@ export class AnaliticasComponent implements OnInit {
   }
 
   iniciarChartMac() {
-    var c = this.chartMacElement.nativeElement.getContext('2d');
+    const c = this.chartMacElement.nativeElement.getContext('2d');
     this.chartMac = this.iniciarChart(c, this.macTotales);
   }
 
   iniciarChartLinux() {
-    var c = this.chartLinuxElement.nativeElement.getContext('2d');
+    const c = this.chartLinuxElement.nativeElement.getContext('2d');
     this.chartLinux = this.iniciarChart(c, this.linuxTotales);
   }
 
-  iniciarChart(ctx: any, data: number[]) {
+  iniciarChart(ctx: ChartItem, data: number[]) {
     return new Chart(
       ctx,
       {

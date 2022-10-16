@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Chart } from 'chart.js';
+import { Chart, ChartItem } from 'chart.js';
 import { Paquete } from 'src/app/models/package.model';
 import { HomebrewService } from 'src/app/services/homebrew.service';
 import {
@@ -79,7 +79,7 @@ export class DetailsComponent implements OnInit {
       Number(this.paquete['analytics-365']),
     ];
 
-    var c = this.chartMacElement.nativeElement.getContext('2d');
+    const c = this.chartMacElement.nativeElement.getContext('2d');
     this.chartMac = this.iniciarChart(c, valoresMac);
   }
 
@@ -90,11 +90,11 @@ export class DetailsComponent implements OnInit {
       Number(this.paquete['analytics-linux-365']),
     ];
 
-    var c = this.chartLinuxElement.nativeElement.getContext('2d');
+    const c = this.chartLinuxElement.nativeElement.getContext('2d');
     this.chartLinux = this.iniciarChart(c, valoresLinux);
   }
 
-  iniciarChart(ctx: any, data: number[]) {
+  iniciarChart(ctx: ChartItem, data: number[]) {
     return new Chart(ctx, {
       type: 'bar',
       options: {

@@ -46,7 +46,7 @@ const obtenerPaquetes = async () => {
       deprecation_date: p.deprecation_date,
     };
 
-    paqueteMod['analytics-365'] = analiticasMap.get(p['full-name']) ?? '0';
+    paqueteMod['analytics-365'] = analiticasMap.get(paqueteMod['full-name']) ?? '0';
     return paqueteMod;
   });
 
