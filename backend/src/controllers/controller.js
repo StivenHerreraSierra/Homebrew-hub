@@ -3,7 +3,7 @@ import {
   obtenerAnaliticasMac,
   obtenerPaquete,
   obtenerPaquetes,
-} from "../services/service.js";
+} from '../services/service.js';
 
 /**
  * Handler que obtiene todos los paquetes disponibles en la API.
