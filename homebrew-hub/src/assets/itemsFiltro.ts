@@ -1,3 +1,6 @@
+/**
+ * Valores de los filtros.
+ */
 export const LICENCIAS: string[] = [
   "0BSD",
   "AFL",

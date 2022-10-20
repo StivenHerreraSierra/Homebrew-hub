@@ -1,22 +1,36 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Analitica, Paquete, PaqueteRespuesta } from '../models/package.model';
 import { map, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
+/**
+ * Servicios de la aplicación.
+ */
 @Injectable({
   providedIn: 'root',
 })
 export class HomebrewService {
+  //Lista de paquetes.
   private listaPaquetes: Paquete[] = [];
+  //Observable que sincroniza la lista de paquetes en todos los componentes que la usan.
   private paquetes = new Subject<Paquete[]>();
 
+  //Inyección de dependencias.
   constructor(private http: HttpClient) {}
 
+  /**
+   * Método que envía el observable con el cual se informa la actualización de la lista.
+   * @returns Observable.
+   */
   watch() {
     return this.paquetes.asObservable();
   }
 
+  /**
+   * Obtiene todos los paquetes de Formulae.
+   * Si la petición ya se hizo una vez, se capturan los datos del sessionStorage.
+   */
   getAll() {
     if (sessionStorage.getItem('all')) {
       this.listaPaquetes = JSON.parse(sessionStorage.getItem('all')!);
@@ -57,6 +71,11 @@ export class HomebrewService {
     }
   }
 
+  /**
+   * Filtra los paquetes por una coincidencia en el nombre o descripción.
+   * @param busqueda Texto de la búsqueda.
+   * @returns Lista de paquetes que cumplen la coincidencia.
+   */
   filtrarPorBusqueda(busqueda: string): Paquete[] {
     const busquedaAux = busqueda.toLowerCase();
     const paquetesFiltrados = this.listaPaquetes.filter(
@@ -68,6 +87,13 @@ export class HomebrewService {
     return paquetesFiltrados;
   }
 
+  /**
+   * Obtiene los paquete que tienen la licencia especificada.
+   * @param licencia Licencia a cumplir.
+   * @param paquetes Lista de paquetes que se quiere filtrar.
+   * @param listaActual Lista de paquetes a la que se va a añadir el nuevo filtro.
+   * @returns Lista de paquetes que cumplen el filtro.
+   */
   filtrarPorLicencia(
     licencia: string,
     paquetes: Paquete[],
@@ -86,15 +112,13 @@ export class HomebrewService {
     return listaFiltrada;
   }
 
-  removerFiltroPorLicencia(licencia: string, listaActual: Paquete[]) {
-    //Obtiene los paquetes que cumplen.
-    const listaFiltrada: Paquete[] = listaActual.filter(
-      (p) => p.license && !p.license.includes(licencia)
-    );
-
-    return listaFiltrada;
-  }
-
+  /**
+   * Obtiene los paquetes que están en el SO especificado.
+   * @param sistema Sistema operativo a cumplir.
+   * @param paquetes Lista de paquetes a filtrar.
+   * @param listaActual Lista de paquetes a la que se va a añadir el nuevo filtro.
+   * @returns Lista de paquetes que cumplen el filtro.
+   */
   filtrarPorSistemaOperativo(
     sistema: string,
     paquetes: Paquete[],
@@ -115,19 +139,13 @@ export class HomebrewService {
     return listaFiltrada;
   }
 
-  removerFiltroPorSistemaOperativo(sistema: string, listaActual: Paquete[]) {
-    let listaFiltrada: Paquete[] = [];
-
-    //Obtiene los paquetes que cumplen.
-    if (sistema.toLowerCase() === 'linux') {
-      listaFiltrada = listaActual.filter((p) => !p.linuxCompatible);
-    } else {
-      listaFiltrada = listaActual.filter((p) => p.linuxCompatible);
-    }
-
-    return listaFiltrada;
-  }
-
+  /**
+   * Obtiene los paquetes que en su descripción contienen la categoría especificada.
+   * @param categoria Categoría a cumplir.
+   * @param paquetes Lista de paquetes a filtrar.
+   * @param listaActual Lista de paquetes a la que se va a añadir el nuevo filtro.
+   * @returns Lista de paquetes que cumplen el filtro.
+   */
   filtrarPorCategoria(
     categoria: string,
     paquetes: Paquete[],
@@ -145,17 +163,11 @@ export class HomebrewService {
     return paquetesFiltrados;
   }
 
-  removerFiltroPorCategoria(categoria: string, listaActual: Paquete[]) {
-    const categoriaAux = categoria.toLowerCase();
-
-    //Obtiene los paquetes que cumplen.
-    const listaFiltrada: Paquete[] = listaActual.filter(
-      (p) => p.desc && !p.desc.toLocaleLowerCase().includes(categoriaAux)
-    );
-
-    return listaFiltrada;
-  }
-
+  /**
+   * Obtiene las analíticas de Mac OS de los últimos n días.
+   * @param dias Número de días de la analítica.
+   * @returns Observable de la petición.
+   */
   getMacOsAnaliticas(dias: number) {
     return this.http
       .get<Analitica>(`${environment.api}/analytics/${dias}d`)
@@ -172,6 +184,11 @@ export class HomebrewService {
       );
   }
 
+  /**
+   * Obtiene la analíticas de Linux de los últimos n días.
+   * @param dias Número de días de la analítica.
+   * @returns Observable de la petición.
+   */
   getLinuxAnaliticas(dias: number) {
     return this.http
       .get<Analitica>(`${environment.api}/analytics-linux/${dias}d`)
@@ -188,6 +205,11 @@ export class HomebrewService {
       );
   }
 
+  /**
+   * Ordena la lista de paquetes de acuerdo a la cantidad de instalaciones.
+   * @param paquetes Lista de paquetes a ordenar.
+   * @returns Lista de paquetes ordenada.
+   */
   ordenarListado(paquetes: Paquete[]) {
     const paquetesOrdenado = [...paquetes].sort(
       (p1: Paquete, p2: Paquete) =>
@@ -198,6 +220,11 @@ export class HomebrewService {
     return paquetesOrdenado;
   }
 
+  /**
+   * Obtiene un paquete específico por su nombre.
+   * @param nombrePaquete Nombre del paquete.
+   * @returns Paquete con su información.
+   */
   getPaquete(nombrePaquete: string) {
     return this.http
       .get<PaqueteRespuesta>(`${environment.api}/get/${nombrePaquete}`)

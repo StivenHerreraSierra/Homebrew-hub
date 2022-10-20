@@ -1,3 +1,6 @@
+/**
+ * Valores contantes en el diagrama de barras.
+ */
 const BACKGROUND_COLOR = [
   'rgba(255, 99, 132, 0.2)',
   'rgba(75, 192, 192, 0.2)',

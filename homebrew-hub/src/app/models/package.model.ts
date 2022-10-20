@@ -1,17 +1,6 @@
-export interface Analytics {
-  install: {
-    '30d': {
-      total: number;
-    };
-    '90d': {
-      total: number;
-    };
-    '365d': {
-      total: number;
-    };
-  };
-}
-
+/**
+ * Interface que representa un paquete.
+ */
 export interface Paquete {
   name: string;
   fullName: string;
@@ -35,6 +24,9 @@ export interface Paquete {
   'analytics-linux-365': string;
 }
 
+/**
+ * Interface que representa un paquete con el formato que se envía en la respuesta de la petición.
+ */
 export interface PaqueteRespuesta {
   name: string;
   'full-name': string;
@@ -72,6 +64,9 @@ export interface PaqueteRespuesta {
   'analytics-linux-365': string;
 }
 
+/**
+ * Interface que representa las analíticas de Homebrew.
+ */
 export interface Analitica {
   total_items: number;
   start_date: string;
@@ -80,6 +75,9 @@ export interface Analitica {
   items: PaquetesAnalitica[];
 }
 
+/**
+ * Interface que representa los items de la analítica.
+ */
 export interface PaquetesAnalitica {
   number: number;
   formula: string;
@@ -87,6 +85,9 @@ export interface PaquetesAnalitica {
   percent: string;
 }
 
+/**
+ * Interface que representa los datos del diagrama de barras.
+ */
 export interface ChartBarData {
   labels: string[];
   datasets: [

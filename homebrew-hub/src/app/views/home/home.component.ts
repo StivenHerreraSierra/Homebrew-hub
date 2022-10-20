@@ -4,6 +4,7 @@ import { Paquete } from 'src/app/models/package.model';
 import { CATEGORIAS, LICENCIAS, SISTEMAS_OPERATIVOS } from '../../../assets/itemsFiltro';
 import { HomebrewService } from '../../services/homebrew.service';
 
+//Cantidad de paquetes por página.
 const ITEMS_PAGINA = 20;
 
 @Component({
@@ -12,33 +13,46 @@ const ITEMS_PAGINA = 20;
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  //Observable y lista de paquetes.
   paquetesObservable = new Observable<Paquete[]>();
   paquetes: Paquete[] = [];
 
+  //Lista de paquetes de la página actual.
   paquetesPagina: Paquete[] = [];
 
+  //Variables auxiliares para calcular los paquetes que se van a mostrar.
   indicePrimerItem = 0;
   indiceUltimoItem = 0;
   totalPaquetes = 0;
 
+  //Lista de licencias para filtrar la lista.
   licenciasSeleccionadas: string[] = [];
   licencias = LICENCIAS;
 
+  //Lista de SO para filtrar la lista.
   sistemasOperativosSeleccionados: string[] = [];
   sistemasOperativos = SISTEMAS_OPERATIVOS;
 
+  //Lista de categorías para filtrar la lista.
   categoriasSeleccionadas: string[] = [];
   categorias = CATEGORIAS;
+  //Obtiene el valor que representa la categoría.
   get categoriasFiltro(): string[] {
     return [...this.categorias.keys()];
   }
 
+  //Valor del filtro por búsqueda.
   busqueda = "";
 
+  //Variable del Toogle que ordena la lista.
   isOrdenarListado = false;
 
+  //Inyección de dependencias.
   constructor(private homebrewService: HomebrewService) { }
 
+  /**
+   * Método que se ejecuta cuando se carga el componente.
+   */
   ngOnInit(): void {
     this.paquetesObservable = this.homebrewService.watch();
 
@@ -56,6 +70,10 @@ export class HomeComponent implements OnInit {
     this.homebrewService.getAll();
   }
 
+  /**
+   * Método que actualiza los paquetes que se muestran en la página.
+   * @param indicePagina Índice actual de la página.
+   */
   actualizarPagina(indicePagina: number) {
     this.totalPaquetes = this.paquetes.length;
 
@@ -80,6 +98,10 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  /**
+   * Filtra la lista por el valor buscado.
+   * @param busqueda Valor de la busqueda.
+   */
   buscarPaquete(busqueda: string) {
     if (this.busqueda !== busqueda) {
       this.isOrdenarListado = false;
@@ -98,6 +120,10 @@ export class HomeComponent implements OnInit {
     this.actualizarPagina(0);
   }
 
+  /**
+   * Método que recibe el evento de filtrar por licencia.
+   * @param seleccionados Lista de licencias seleccionadas en el filtro.
+   */
   filtrarPorLicenciaHandler(seleccionados: string[]) {
     this.licenciasSeleccionadas = seleccionados;
 
@@ -107,6 +133,9 @@ export class HomeComponent implements OnInit {
     this.actualizarPagina(0);
   }
 
+  /**
+   * Filtra la lista por las licencias seleccionadas.
+   */
   filtrarPorLicencia() {
     let listaFiltrada: Paquete[] = [];
 
@@ -121,6 +150,10 @@ export class HomeComponent implements OnInit {
     this.paquetes = listaFiltrada;
   }
 
+  /**
+   * Método que recibe el evento de filtrar por SO.
+   * @param seleccionados Lista de SO seleccionados en el filtro.
+   */
   filtrarPorSistemaOperativoHandler(seleccionados: string[]) {
     this.sistemasOperativosSeleccionados = seleccionados;
 
@@ -130,6 +163,9 @@ export class HomeComponent implements OnInit {
     this.actualizarPagina(0);
   }
 
+  /**
+   * Filtra la lista por los SO seleccionados.
+   */
   filtrarPorSistemaOperativo() {
     let listaFiltrada: Paquete[] = [];
 
@@ -144,6 +180,10 @@ export class HomeComponent implements OnInit {
     this.paquetes = listaFiltrada;
   }
 
+  /**
+   * Método que recibe el evento de filtrar por categorías.
+   * @param seleccionados Lista de categorías seleccionadas.
+   */
   filtrarPorCategoriasHandler(seleccionados: string[]) {
     this.categoriasSeleccionadas = seleccionados;
 
@@ -153,6 +193,9 @@ export class HomeComponent implements OnInit {
     this.actualizarPagina(0);
   }
 
+  /**
+   * Filtra la lista por las categorías seleccionadas.
+   */
   filtrarPorCategoria() {
     let listaFiltrada: Paquete[] = [];
 
@@ -167,6 +210,9 @@ export class HomeComponent implements OnInit {
     this.paquetes = listaFiltrada;
   }
 
+  /**
+   * Ordena los paquetes por cantidad de instalaciones (mayor a menor).
+   */
   ordenarListado() {
     if(this.isOrdenarListado) {
       this.paquetes = this.homebrewService.ordenarListado(this.paquetes);
@@ -177,6 +223,9 @@ export class HomeComponent implements OnInit {
     this.actualizarPagina(0);
   }
 
+  /**
+   * Reincia la lista de paquetes y los filtros que se tienen.
+   */
   reiniciarFiltrosLista() {
     if (this.busqueda) {
       this.buscarPaquete(this.busqueda);
