@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Analitica, Paquete, PaqueteRespuesta } from '../models/package.model';
 import { map, Subject } from 'rxjs';
