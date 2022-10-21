@@ -1,0 +1,54 @@
+<app-toolbar></app-toolbar>
+<div class="container">
+  <h2 class="container__title">
+    <span class="material-icons"> trending_up </span>
+    Analíticas
+  </h2>
+
+  <mat-tab-group>
+    <mat-tab label="MacOS">
+      <div class="tab">
+        <div class="chart">
+          <canvas #chartMac>{{ chartMac }}</canvas>
+        </div>
+
+        <app-tabla-top
+          title="Top 10 últimos 30 días"
+          [data]="data30dMac"
+        ></app-tabla-top>
+
+        <app-tabla-top
+          title="Top 10 últimos 90 días"
+          [data]="data90dMac"
+        ></app-tabla-top>
+
+        <app-tabla-top
+          title="Top 10 últimos 365 días"
+          [data]="data365dMac"
+        ></app-tabla-top>
+      </div>
+    </mat-tab>
+    <mat-tab label="Linux">
+      <div class="tab">
+        <div class="chart">
+          <canvas #chartLinux>{{ chartLinux }}</canvas>
+        </div>
+
+        <app-tabla-top
+          title="Top 10 últimos 30 días"
+          [data]="data30dLinux"
+        ></app-tabla-top>
+
+        <app-tabla-top
+          title="Top 10 últimos 90 días"
+          [data]="data90dLinux"
+        ></app-tabla-top>
+
+        <app-tabla-top
+          title="Top 10 últimos 365 días"
+          [data]="data365dLinux"
+        ></app-tabla-top>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

@@ -1,0 +1,37 @@
+.clip__container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #27343b;
+    height: min-content;
+    width: 300px;
+    height: 40px;
+    padding: 0 10px;
+    box-sizing: border-box;
+    color: white;
+    border-radius: 3px;
+    position: relative;
+}
+
+.clip__container, .clip__container * {
+    cursor: pointer;
+}
+
+.container__input {
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background-color: transparent;
+    border:none;
+    outline: none;
+    appearance: none;
+}
+
+.tooltip {
+    position: absolute;
+    text-align: center;
+    top: 30%;
+    left: 50%;
+    right: 50%;
+}

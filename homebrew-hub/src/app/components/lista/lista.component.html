@@ -1,0 +1,11 @@
+<div class="lista-container">
+  <mat-list role="list" *ngFor="let paquete of paquetes">
+    <app-lista-item [paquete]="paquete"></app-lista-item>
+  </mat-list>
+  <mat-paginator
+    [length]="totalPaquetes"
+    pageSize="20"
+    (page)="cambiarPagina($event)"
+  >
+  </mat-paginator>
+</div>

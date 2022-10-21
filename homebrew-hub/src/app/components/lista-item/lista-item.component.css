@@ -1,0 +1,75 @@
+.item-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    min-height: 150px;
+    background-color: whitesmoke;
+    box-sizing: border-box;
+    margin: 10px 0 !important;
+    padding: 20px;
+    border-radius: 3px;
+    box-shadow: 0 0 2px 1px rgb(219, 219, 219);
+    cursor: pointer;
+}
+
+.item__imagen {
+    background-color: transparent;
+    flex-grow: 1;
+    width: 100px;
+    min-width: 100px;
+    max-width: 100px;
+    border-radius: 50%;
+    box-sizing: border-box;
+}
+
+.item__info {
+    background-color: transparent;
+    flex-grow: 2;
+    padding: 0 10px;
+    font-size: 17px;
+}
+
+.item__obsoleto {
+    flex-grow: 1;
+    background-color: transparent;
+    text-align: right;
+    font-weight: normal;
+}
+
+.item-container:last-child {
+    align-items: start;
+}
+
+.info__titulo {
+    font-size: 18px;
+}
+
+.info__descripcion {
+    font-size: 15px;
+    color: rgb(105, 105, 105);
+}
+
+.info__chip {
+    font-size: 12px;
+    color: rgb(129, 129, 129);
+}
+
+.info__chip--icon {
+    font-size: 15px;
+    width: 15px;
+    height: 15px;
+}
+
+.obsoleto__etiqueta {
+    display: block;
+    font-size: 12px;
+    color: rgb(100, 100, 100);
+}
+
+.obsoleto__etiqueta--icon {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+}

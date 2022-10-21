@@ -1,0 +1,50 @@
+<app-toolbar>
+  <app-buscador medio (eventoBuscar)="buscarPaquete($event)"></app-buscador>
+  <a class="inline enlace" enlaces routerLink="analiticas">Analíticas</a>
+</app-toolbar>
+
+<div class="content" role="main">
+  <div class="flex">
+    <aside class="sidenav">
+      <h3>Filtros</h3>
+      <app-filtro-checkbox
+        titulo="Categorías"
+        [items]="categoriasFiltro"
+        [itemsSeleccionados]="categoriasSeleccionadas"
+        (eventoFiltrar)="filtrarPorCategoriasHandler($event)"
+      ></app-filtro-checkbox>
+      <app-filtro-checkbox
+        titulo="Licencias"
+        [items]="licencias"
+        [itemsSeleccionados]="licenciasSeleccionadas"
+        (eventoFiltrar)="filtrarPorLicenciaHandler($event)"
+      ></app-filtro-checkbox>
+      <app-filtro-checkbox
+        titulo="Sistema Operativo"
+        [items]="sistemasOperativos"
+        [itemsSeleccionados]="sistemasOperativosSeleccionados"
+        (eventoFiltrar)="filtrarPorSistemaOperativoHandler($event)"
+      ></app-filtro-checkbox>
+    </aside>
+
+    <section class="section">
+      <div class="section__header">
+        <p>
+          {{ indicePrimerItem + 1 }} - {{ indiceUltimoItem }} de
+          {{ totalPaquetes }} resultados disponibles
+        </p>
+        <mat-slide-toggle
+          color="primary"
+          [(ngModel)]="isOrdenarListado"
+          (change)="ordenarListado()"
+          >Ordenar por instalación</mat-slide-toggle
+        >
+      </div>
+      <app-lista
+        [paquetes]="paquetesPagina"
+        [totalPaquetes]="totalPaquetes"
+        (eventoPaginador)="actualizarPagina($event)"
+      ></app-lista>
+    </section>
+  </div>
+</div>

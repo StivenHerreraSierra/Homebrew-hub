@@ -1,0 +1,25 @@
+.filtro-container {
+  box-sizing: border-box;
+  max-height: 250px;
+  height: fit-content;
+  overflow-y: auto;
+  overflow-x: auto;
+  margin-bottom: 10px;
+}
+
+.filtro-container::-webkit-scrollbar {
+  width: 5px;
+  background-color: rgb(153, 153, 153);
+  border-radius: 20px;
+}
+
+.filtro-container::-webkit-scrollbar-thumb {
+  background-color: rgb(80, 80, 80);
+  border-radius: 20px;
+}
+
+.filtro__opcion {
+  height: 30px !important;
+  padding: 0;
+  margin: 0;
+}

@@ -1,0 +1,20 @@
+<form>
+  <div>
+    <h4 clas>{{ titulo }}</h4>
+    <mat-selection-list
+      class="filtro-container"
+      name="filtro"
+      [(ngModel)]="itemsSeleccionados"
+      (selectionChange)="filtrar()"
+    >
+      <mat-list-option
+        class="filtro__opcion"
+        *ngFor="let item of items"
+        checkboxPosition="before"
+        [value]="item"
+      >
+        {{ item }}
+      </mat-list-option>
+    </mat-selection-list>
+  </div>
+</form>
