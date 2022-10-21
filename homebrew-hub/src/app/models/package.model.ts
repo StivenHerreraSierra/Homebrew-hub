@@ -5,10 +5,10 @@ export interface Paquete {
   name: string;
   fullName: string;
   tap: string;
-  oldname: string;
+  oldname?: string;
   desc: string;
   license: string;
-  homepage: string;
+  homepage?: string;
   stableVersion: string;
   stableUrl: string;
   linuxCompatible: boolean;
@@ -16,12 +16,12 @@ export interface Paquete {
   dependencies: string[];
   deprecated: boolean;
   deprecation_date: string;
-  'analytics-30': string;
-  'analytics-90': string;
-  'analytics-365': string;
-  'analytics-linux-30': string;
-  'analytics-linux-90': string;
-  'analytics-linux-365': string;
+  'analytics-30'?: string;
+  'analytics-90'?: string;
+  'analytics-365'?: string;
+  'analytics-linux-30'?: string;
+  'analytics-linux-90'?: string;
+  'analytics-linux-365'?: string;
 }
 
 /**

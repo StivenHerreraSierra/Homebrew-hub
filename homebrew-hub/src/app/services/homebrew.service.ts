@@ -213,8 +213,8 @@ export class HomebrewService {
   ordenarListado(paquetes: Paquete[]) {
     const paquetesOrdenado = [...paquetes].sort(
       (p1: Paquete, p2: Paquete) =>
-        parseInt(p2['analytics-365'].replace(/,/g, '')) -
-        parseInt(p1['analytics-365'].replace(/,/g, ''))
+        parseInt(p2['analytics-365']!.replace(/,/g, '')) -
+        parseInt(p1['analytics-365']!.replace(/,/g, ''))
     );
 
     return paquetesOrdenado;
