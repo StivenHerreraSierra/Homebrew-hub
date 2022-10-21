@@ -10,16 +10,34 @@ on:
     branches: ["main"]
 
 jobs:
-  build:
+  backend-build:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Use Node.js 19.x
+      - name: Use Node.js 18.x
         uses: actions/setup-node@v3
         with:
-          node-version: 19.x
+          node-version: 18.x
+          cache: "npm"
+          cache-dependency-path: ./backend/package-lock.json
+      - name: Install Dependencies
+        working-directory: ./backend
+        run: npm ci
+      - name: Run tests
+        working-directory: ./backend
+        run: npm run test
+  frontend-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Use Node.js 18.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
           cache: "npm"
           cache-dependency-path: ./homebrew-hub/package-lock.json
       - name: Install Dependencies
