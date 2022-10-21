@@ -21,10 +21,10 @@ jobs:
         with:
           node-version: 19.x
           cache: "npm"
-          cache-dependency-path: ./hombrew-hub/package-lock.json
+          cache-dependency-path: ./homebrew-hub/package-lock.json
       - name: Install Dependencies
-        working-directory: ./hombrew-hub
+        working-directory: ./homebrew-hub
         run: npm ci
       - name: Run tests
-        working-directory: ./hombrew-hub
+        working-directory: ./homebrew-hub
         run: npm test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
