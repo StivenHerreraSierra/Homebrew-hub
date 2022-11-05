@@ -9,6 +9,7 @@ dotenv.config();
 
 // Creación del servidor.
 const app = express();
+app.disable("x-powered-by");
 app.use(morgan('tiny'));
 
 // Configuración del cors.
