@@ -20,13 +20,6 @@ describe('HomebrewService', () => {
     expect(service).toBeTruthy();
   });
 
-  /*
-  it('Debería obtener más de 6k paquetes', () => {
-    console.log(paquetes);
-    expect(paquetes.length).toBeGreaterThan(6000);
-  });
-  */
-
   it('Los paquetes no deben estar undefined', () => {
     expect(paquetes[0]).not.toBeUndefined();
   });

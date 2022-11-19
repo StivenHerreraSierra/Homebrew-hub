@@ -1,9 +1,8 @@
-import { assert, expect } from "chai";
+import { expect } from "chai";
 import {
   obtenerAnaliticasLinux,
   obtenerAnaliticasMac,
   obtenerPaquete,
-  obtenerPaquetes,
 } from "../src/services/service.js";
 
 function formatearFecha(fecha) {
@@ -13,18 +12,6 @@ function formatearFecha(fecha) {
 describe("Pruebas unitarias API", function () {
   this.timeout(200000);
 
-  /*
-  describe("Obtener todos los paquetes", function () {
-    it("Debe recuperar +6k elementos", async function (done) {
-      this.timeout(200000);
-      const paquetesRetornados = await obtenerPaquetes();
-      expect(paquetesRetornados.length).greaterThan(6000);
-
-      done();
-    });
-    it("Los elementos deben cumplir la estructura de un paquete", async () => {});
-  });
-  */
   describe("Obtener analíticas Mac", function () {
     it("La analítica de 30 días debe terminar hoy e iniciar 30 días atrás", async function () {
       let fechaInicio = new Date();

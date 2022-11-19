@@ -20,6 +20,8 @@ export class BuscadorComponent {
    * Pasa el valor de la variable 'busqueda'.
    */
   buscar() {
+    this.busqueda = this.busqueda.trim();
+    this.busqueda = this.busqueda.replace(/\s\s+/g, " ");
     this.eventoBuscar.emit(this.busqueda);
   }
 }
