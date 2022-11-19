@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, OnInit, Input } from '@angular/core';
 
 /**
  * Buscador de paquetes.
@@ -8,12 +8,19 @@ import { Component, EventEmitter, Output } from '@angular/core';
   templateUrl: './buscador.component.html',
   styleUrls: ['./buscador.component.css']
 })
-export class BuscadorComponent {
+export class BuscadorComponent implements OnInit {
+  
+
   //Propiedad para el binding con el HTML.
   busqueda = "";
 
   //Evento que se emite al padre.
   @Output() eventoBuscar = new EventEmitter();
+  @Input() texto = "";
+
+  ngOnInit(): void {
+    this.busqueda = this.texto;
+  }
 
   /**
    * Lanza el evento al padre cuando se presiona ENTER.

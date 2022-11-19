@@ -54,12 +54,13 @@ export class HomeComponent implements OnInit {
    * Método que se ejecuta cuando se carga el componente.
    */
   ngOnInit(): void {
+    this.recuperarFiltros();
     this.paquetesObservable = this.homebrewService.watch();
 
     this.paquetesObservable.subscribe({
       next: (data: Paquete[]) => {
         this.paquetes = data;
-        this.reiniciarFiltrosLista();
+        this.reiniciarFiltrosLista(true);
         this.actualizarPagina(0);
       },
       error(err) {
@@ -104,11 +105,8 @@ export class HomeComponent implements OnInit {
    */
   buscarPaquete(busqueda: string) {
     if (this.busqueda !== busqueda) {
-      this.isOrdenarListado = false;
-      this.categoriasSeleccionadas = [];
-      this.licenciasSeleccionadas = [];
-      this.sistemasOperativosSeleccionados = [];
       this.busqueda = busqueda;
+      this.persistirFiltros();
     }
 
     if (busqueda) {
@@ -117,6 +115,7 @@ export class HomeComponent implements OnInit {
       this.homebrewService.getAll();
     }
 
+    this.reiniciarFiltrosLista(false);
     this.actualizarPagina(0);
   }
 
@@ -128,7 +127,7 @@ export class HomeComponent implements OnInit {
     this.licenciasSeleccionadas = seleccionados;
 
     this.homebrewService.getAll();
-    this.reiniciarFiltrosLista();
+    this.reiniciarFiltrosLista(true);
 
     this.actualizarPagina(0);
   }
@@ -158,7 +157,7 @@ export class HomeComponent implements OnInit {
     this.sistemasOperativosSeleccionados = seleccionados;
 
     this.homebrewService.getAll();
-    this.reiniciarFiltrosLista();
+    this.reiniciarFiltrosLista(true);
 
     this.actualizarPagina(0);
   }
@@ -188,7 +187,7 @@ export class HomeComponent implements OnInit {
     this.categoriasSeleccionadas = seleccionados;
 
     this.homebrewService.getAll();
-    this.reiniciarFiltrosLista();
+    this.reiniciarFiltrosLista(true);
 
     this.actualizarPagina(0);
   }
@@ -216,9 +215,11 @@ export class HomeComponent implements OnInit {
   ordenarListado() {
     if(this.isOrdenarListado) {
       this.paquetes = this.homebrewService.ordenarListado(this.paquetes);
+
+      this.persistirFiltros();
     } else {
       this.homebrewService.getAll();
-      this.reiniciarFiltrosLista();
+      this.reiniciarFiltrosLista(true);
     }
     this.actualizarPagina(0);
   }
@@ -226,8 +227,10 @@ export class HomeComponent implements OnInit {
   /**
    * Reincia la lista de paquetes y los filtros que se tienen.
    */
-  reiniciarFiltrosLista() {
-    if (this.busqueda) {
+  reiniciarFiltrosLista(restaurarLista: boolean) {
+    this.persistirFiltros();
+
+    if (restaurarLista && this.busqueda) {
       this.buscarPaquete(this.busqueda);
     }
 
@@ -245,6 +248,36 @@ export class HomeComponent implements OnInit {
 
     if (this.isOrdenarListado)  {
       this.ordenarListado();
+    }
+  }
+
+  /**
+   * Persiste los filtros marcados por el usuario.
+   */
+  persistirFiltros() {
+    localStorage.setItem('filtros', JSON.stringify({
+        busqueda: this.busqueda || "",
+        licencias: this.licenciasSeleccionadas || [],
+        os: this.sistemasOperativosSeleccionados || [],
+        categorias: this.categoriasSeleccionadas || [],
+        orden: this.isOrdenarListado
+      })
+    );
+  }
+
+  /**
+   * Recupera los filtros marcados por el usuario.
+   */
+  recuperarFiltros() {
+    const recuperado = localStorage.getItem('filtros');
+
+    if (recuperado) {
+      const filtros = JSON.parse(recuperado);
+      this.busqueda = filtros.busqueda;
+      this.licenciasSeleccionadas = filtros.licencias;
+      this.sistemasOperativosSeleccionados = filtros.os;
+      this.categoriasSeleccionadas = filtros.categorias;
+      this.isOrdenarListado = filtros.orden;
     }
   }
 }
