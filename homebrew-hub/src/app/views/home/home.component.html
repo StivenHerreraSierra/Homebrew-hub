@@ -30,7 +30,7 @@
     <section class="section">
       <div class="section__header">
         <p>
-          {{ indicePrimerItem + 1 }} - {{ indiceUltimoItem }} de
+          {{ totalPaquetes > 0 ? indicePrimerItem + 1 : 0 }} - {{ indiceUltimoItem }} de
           {{ totalPaquetes }} resultados disponibles en la api
         </p>
         <mat-slide-toggle
