@@ -24,6 +24,7 @@ export class HomeComponent implements OnInit {
   indicePrimerItem = 0;
   indiceUltimoItem = 0;
   totalPaquetes = 0;
+  indicePaginador = 0;
 
   //Lista de licencias para filtrar la lista.
   licenciasSeleccionadas: string[] = [];
@@ -76,6 +77,7 @@ export class HomeComponent implements OnInit {
    * @param indicePagina Índice actual de la página.
    */
   actualizarPagina(indicePagina: number) {
+    this.indicePaginador = indicePagina;
     this.totalPaquetes = this.paquetes.length;
 
     if (this.totalPaquetes == 0) {

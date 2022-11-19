@@ -7,8 +7,8 @@
  */
 export const environment = {
   production: false,
-  api: 'https://homebrewhub-api-gsk5.onrender.com/api'
-  //api: 'http://localhost:4000/api',
+  //api: 'https://homebrewhub-api-gsk5.onrender.com/api'
+  api: 'http://localhost:4000/api',
 };
 
 /*
