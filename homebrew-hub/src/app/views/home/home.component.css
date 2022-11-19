@@ -10,7 +10,6 @@
   flex-basis: 20%;
   background-color: transparent;
   padding: 0 5px;
-  max-height: calc(100vh - 40px);
 }
 
 .section {
